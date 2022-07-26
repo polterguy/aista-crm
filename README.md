@@ -25,5 +25,5 @@ then to generate an Angular frontend wrapping the backend.
 ## License
 
 All code in this plugin is published under the terms of the MIT license as published
-by the Open Source Initiative.
+by the Open Source Initiative. See the LICENSE file for details.
 
