@@ -1,2 +1,1 @@
-insert into status (status) values ('Lead');
-insert into status (status) values ('Client');
+alter table accounts add column created timestamp not null default current_timestamp

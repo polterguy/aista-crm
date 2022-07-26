@@ -6,10 +6,17 @@ CREATE TABLE status(
   status varchar not null unique
 );
 
+insert into status (status) values ('Lead');
+insert into status (status) values ('Client');
+
 CREATE TABLE activity_types(
   activity_type_id integer not null primary key autoincrement,
-  type varchar not null
+  type varchar not null unique
 );
+
+insert into activity_types(type) values ('Phone');
+insert into activity_types(type) values ('Meeting');
+insert into activity_types(type) values ('Email');
 
 CREATE TABLE employees(
   employee_id integer not null primary key autoincrement,
