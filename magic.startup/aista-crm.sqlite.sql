@@ -38,7 +38,7 @@ CREATE TABLE accounts(
 
 CREATE TABLE contacts(
   contact_id integer not null primary key autoincrement,
-  account integer not null references accounts(accounts_id),
+  account integer not null references accounts(account_id),
   name varchar not null,
   phone varchar,
   email varchar,
