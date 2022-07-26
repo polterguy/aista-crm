@@ -49,12 +49,12 @@ CREATE TABLE contacts(
   twitter varchar
 );
 
-CREATE TABLE contacts_activities(
-  contact_id integer not null references contacts (contact_id),
-  activity_id integer not null references activities (activity_id)
+CREATE TABLE activities_contacts(
+  activity_id integer not null references activities (activity_id),
+  contact_id integer not null references contacts (contact_id)
 );
 
-CREATE TABLE employees_activities(
+CREATE TABLE activities_employees(
   activity_id integer not null references activities (activity_id),
   employee_id integer not null references employees (employee_id)
 );
