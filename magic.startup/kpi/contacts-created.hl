@@ -3,24 +3,20 @@
  * KPI file for displaying workload information.
  */
 .name:New contacts
-.type:bar
+.type:line
 .lambda
    .now
    set-value:x:-
       math.subtract
          date.now
          time
-            days:14
+            days:13
    data.connect:[generic|aista-crm]
       while
          lt:x:@.now
             date.now
          .lambda
             .max
-            set-value:x:@.now
-               math.add:x:@.now
-                  time
-                     days:1
             set-value:x:@.max
                math.add:x:@.now
                   time
@@ -44,4 +40,8 @@
                   .
                      name:x:@date.format/@date.format
                      value:x:@data.read/*/*
+            set-value:x:@.now
+               math.add:x:@.now
+                  time
+                     days:1
    return
