@@ -1,0 +1,100 @@
+
+/*
+ * Template for HTTP GET CRUD requests.
+ * This file was automatically generated using Magic's CRUDifier.
+ */
+.arguments
+   limit:long
+   offset:long
+   order:string
+   direction:string
+   operator:string
+   contacts.contact_id.eq:long
+   contacts.account_id.eq:long
+   contacts.created.eq:date
+   contacts.name.like:string
+   contacts.name.eq:string
+   contacts.phone.like:string
+   contacts.phone.eq:string
+   contacts.email.like:string
+   contacts.email.eq:string
+   contacts.country.like:string
+   contacts.country.eq:string
+   contacts.city.like:string
+   contacts.city.eq:string
+   contacts.linkedIn.like:string
+   contacts.linkedIn.eq:string
+   account_id.status.eq:string
+   account_id.status.like:string
+.description:Returns items from your contacts table in your [generic|aista-crm] database according to the specified arguments
+.type:crud-read
+.handling
+   contacts.phone:phone
+   contacts.email:email
+   contacts.linkedIn:url
+
+// Verifying user is authorized to access endpoint.
+auth.ticket.verify:root, admin, account_manager
+
+// Sanity checking invocation.
+validators.enum:x:@.arguments/*/operator
+   .:or
+   .:and
+
+/*
+ * Checking if user supplied an [operator] argument, and if so
+ * changing the boolean operator for comparison operations.
+ */
+if
+   exists:x:@.arguments/*/operator
+   .lambda
+
+      // User provided a boolean comparison [operator] argument.
+      set-name:x:../*/data.connect/*/data.read/*/where/0
+         get-value:x:@.arguments/*/operator
+
+// Opening up our database connection.
+data.connect:[generic|aista-crm]
+   database-type:sqlite
+
+   // Parametrising our read invocation.
+   add:x:./*/data.read
+      get-nodes:x:@.arguments/*/limit
+      get-nodes:x:@.arguments/*/offset
+      get-nodes:x:@.arguments/*/order
+      get-nodes:x:@.arguments/*/direction
+   remove-nodes:x:@.arguments/*/operator
+   remove-nodes:x:@.arguments/*/limit
+   remove-nodes:x:@.arguments/*/offset
+   remove-nodes:x:@.arguments/*/order
+   remove-nodes:x:@.arguments/*/direction
+   add:x:./*/data.read/*/where/*
+      get-nodes:x:@.arguments/*
+
+   // Reading data from database.
+   data.read
+      database-type:sqlite
+      table:contacts
+         join:accounts
+            as:account_id
+            type:left
+            on
+               and
+                  contacts.account_id:account_id.account_id
+      columns
+         contacts.contact_id
+         contacts.account_id
+         contacts.created
+         contacts.name
+         contacts.phone
+         contacts.email
+         contacts.country
+         contacts.city
+         contacts.linkedIn
+         account_id.status
+            as:account_id.status
+      where
+         and
+
+   // Returning result of above read invocation to caller.
+   return-nodes:x:@data.read/*

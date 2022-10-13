@@ -1,0 +1,38 @@
+
+/*
+ * Template for HTTP DELETE CRUD requests.
+ * This file was automatically generated using Magic's CRUDifier.
+ */
+.arguments
+   activity_id:long
+.description:Deletes one item from your activities table in your [generic|aista-crm] database matching the specified argument(s)
+.type:crud-delete
+
+// Verifying user is authorized to access endpoint.
+auth.ticket.verify:root, admin, account_manager
+auth.ticket.get
+lambda2hyper:x:@.arguments/*
+log.info:aista-crm.activities entry deleted
+   username:x:@auth.ticket.get
+   arguments:x:@lambda2hyper
+validators.mandatory:x:@.arguments/*/activity_id
+
+// Opening up our database connection.
+data.connect:[generic|aista-crm]
+   database-type:sqlite
+
+   // Parametrising our delete invocation.
+   add:x:./*/data.delete/*/where/*/and
+      get-nodes:x:@.arguments/*
+
+   // Deleting item from database.
+   data.delete
+      database-type:sqlite
+      table:activities
+      where
+         and
+
+   // Returning result of above invocation to caller.
+   unwrap:x:+/*
+   return
+      affected:x:@data.delete

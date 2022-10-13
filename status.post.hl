@@ -1,0 +1,36 @@
+
+/*
+ * Template for HTTP POST CRUD requests.
+ * This file was automatically generated using Magic's CRUDifier.
+ */
+.arguments
+   status:string
+   description:string
+.description:Creates an item in your status table in your [generic|aista-crm] database according to the specified arguments
+.type:crud-create
+.handling
+   description:textarea
+
+// Verifying user is authorized to access endpoint.
+auth.ticket.verify:root, admin, account_manager
+
+// Opening up database connection.
+data.connect:[generic|aista-crm]
+   database-type:sqlite
+
+   // Parametrising our create invocation.
+   add:x:./*/data.create/*/values
+      get-nodes:x:@.arguments/*
+
+   // Creating our record.
+   data.create
+      database-type:sqlite
+      table:status
+      return-id:bool:false
+      values
+
+   // Returning result of above invoction to caller.
+   response.status.set:201
+   unwrap:x:+/*
+   return
+      result:success
