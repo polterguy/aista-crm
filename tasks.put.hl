@@ -6,6 +6,8 @@
 .arguments
    task_id:long
    username:string
+   description:string
+   contact:long
 .description:Updates an existing item in your tasks table in your [generic|aista-crm] database according to the specified arguments
 .type:crud-update
 .handling

@@ -9,6 +9,8 @@
    tasks.created.eq:date
    tasks.username.like:string
    tasks.username.eq:string
+   tasks.description.like:string
+   tasks.description.eq:string
 .description:Counts items from your tasks table in your [generic|aista-crm] database according to the specified arguments
 .type:crud-count
 

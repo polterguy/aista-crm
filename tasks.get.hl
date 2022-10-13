@@ -13,6 +13,8 @@
    tasks.created.eq:date
    tasks.username.like:string
    tasks.username.eq:string
+   tasks.description.like:string
+   tasks.description.eq:string
 .description:Returns items from your tasks table in your [generic|aista-crm] database according to the specified arguments
 .type:crud-read
 .handling
@@ -60,10 +62,19 @@ data.connect:[generic|aista-crm]
    data.read
       database-type:sqlite
       table:tasks
+         join:contacts
+            as:contacts
+            type:left
+            on
+               and
+                  tasks.contact:contacts.contact_id
       columns
          tasks.task_id
          tasks.created
          tasks.username
+         tasks.description
+         contacts.name
+            as:contacts.name
       where
          and
 

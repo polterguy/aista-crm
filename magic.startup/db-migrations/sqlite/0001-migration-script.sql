@@ -1,0 +1,1 @@
+alter table tasks add column contact integer references contacts(contact_id)

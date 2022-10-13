@@ -80,7 +80,8 @@ create table activities(
 create table tasks(
   task_id integer not null primary key autoincrement,
   created timestamp not null default current_timestamp,
-  username text
+  username text,
+  description text
 );
 
 
