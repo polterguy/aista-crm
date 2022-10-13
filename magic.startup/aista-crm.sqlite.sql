@@ -28,7 +28,7 @@ create table accounts(
   status text not null references status(status),
   created timestamp not null default current_timestamp,
   name text not null,
-  website text not null,
+  website text,
   account_manager text /* Username of employee responsible for following up on account */
 );
 

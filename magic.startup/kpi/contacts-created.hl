@@ -2,7 +2,7 @@
 /*
  * KPI file for displaying workload information.
  */
-.name:Registrations
+.name:New contacts
 .type:bar
 .lambda
    .now
