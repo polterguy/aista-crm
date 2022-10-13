@@ -1,0 +1,18 @@
+
+/*
+ * KPI file for registered accounts.
+ */
+.name:Latest accounts
+.type:table
+.lambda
+   data.connect:[generic|aista-crm]
+      data.read
+         table:accounts
+         columns
+            name
+            status
+            created
+         order:created
+         direction:desc
+         limit:5
+      return-nodes:x:-/*
