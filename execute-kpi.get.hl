@@ -1,0 +1,22 @@
+
+
+/*
+ * Executes all KPI Hyperlambda snippets and returns to caller.
+ */
+.description:Executes all KPI Hyperlambda snippets and returns to caller
+
+// Opening up our database connection.
+data.connect:[generic|aista-crm]
+   database-type:sqlite
+   
+   data.read
+      table:kpi
+      columns
+         hyperlambda
+      limit:-1
+   for-each:x:@data.read/*
+      hyper2lambda:x:@.dp/#/*/hyperlambda
+      eval:x:@hyper2lambda
+
+// Returning result of above invocation to caller.
+return
