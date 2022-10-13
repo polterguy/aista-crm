@@ -2,70 +2,93 @@
 /*
  * SQLite script to create "aista-crm" database.
  */
-CREATE TABLE status(
-  status_id integer not null primary key autoincrement,
-  status varchar not null unique
-);
 
-insert into status (status) values ('Lead');
-insert into status (status) values ('Client');
 
-CREATE TABLE activity_types(
-  activity_type_id integer not null primary key autoincrement,
-  type varchar not null unique
-);
-
-insert into activity_types(type) values ('Phone');
-insert into activity_types(type) values ('Meeting');
-insert into activity_types(type) values ('Email');
-
-CREATE TABLE employees(
-  employee_id integer not null primary key autoincrement,
-  name varchar not null,
-  email varchar,
-  phone varchar,
-  linkedIn varchar,
-  facebook varchar,
-  twitter varchar
-);
-
-CREATE TABLE activities(
-  activity_id integer not null primary key autoincrement,
-  created timestamp not null default current_timestamp,
-  activity_type integer not null references activity_types(activity_type_id),
-  name varchar not null,
+/*
+ * Status table, implying what the status of some account is, such
+ * as lead, partner or client.
+ */
+create table status(
+  status text not null primary key,
   description text
 );
 
-CREATE TABLE accounts(
+insert into status (status, description) values ('Lead', 'Not a client yet, but might be in the future');
+insert into status (status, description) values ('Client', 'A client that is already purchasing services');
+insert into status (status, description) values ('Partner', 'A partner helping us sell our services');
+
+
+/*
+ * An account is the primary entity in the system, and can be
+ * a lead, a partner, or a client. Typically an account is a
+ * company.
+ */
+create table accounts(
   account_id integer not null primary key autoincrement,
-  status integer not null references status(status_id),
-  name varchar not null,
-  account_manager integer references employees(employee_id)
+  status text not null references status(status),
+  created timestamp not null default current_timestamp,
+  name text not null,
+  account_manager text /* Username of employee responsible for following up on account */
 );
 
-CREATE TABLE contacts(
+
+/*
+ * A contact is a person belonging to an account, such as
+ * an employee working for a company.
+ */
+create table contacts(
   contact_id integer not null primary key autoincrement,
-  account integer not null references accounts(account_id),
-  name varchar not null,
-  phone varchar,
-  email varchar,
-  country varchar,
-  city varchar,
-  linkedIn varchar,
-  facebook varchar,
-  twitter varchar
+  account_id integer not null references accounts(account_id),
+  created timestamp not null default current_timestamp,
+  name text not null,
+  phone text,
+  email text,
+  country text,
+  city text,
+  linkedIn text
 );
 
-CREATE TABLE activities_contacts(
-  activity_id integer not null references activities (activity_id),
+
+/*
+ * Activity related tables. Activities are associated with contacts, and might
+ * include things such as phone conversations, meetings, etc.
+ */
+create table activity_types(
+  type text not null primary key,
+  description text
+);
+
+insert into activity_types(type, description) values ('Phone', 'A phone call was made');
+insert into activity_types(type, description) values ('Meeting', 'A meeting was held');
+insert into activity_types(type, description) values ('Email', 'An email was sent');
+
+create table activities(
+  activity_id integer not null primary key autoincrement,
   contact_id integer not null references contacts (contact_id),
-  primary key(activity_id, contact_id)
+  type text not null references activity_types(type),
+  created timestamp not null default current_timestamp,
+  description text not null
 );
 
-CREATE TABLE activities_employees(
-  activity_id integer not null references activities (activity_id),
-  employee_id integer not null references employees (employee_id),
-  primary key(activity_id, employee_id)
+
+/*
+ * Tasks that have been done or should be done. Each task is associated
+ * with a user in the system.
+ */
+create table tasks(
+  task_id integer not null primary key autoincrement,
+  created timestamp not null default current_timestamp,
+  username text
 );
 
+
+/*
+ * Notifications sent to users about important information, such that
+ * an account or a lead has been assigned to the user, etc.
+ */
+create table notifications(
+  notification_id integer not null primary key autoincrement,
+  created timestamp not null default current_timestamp,
+  username text not null,
+  message text not null
+);
