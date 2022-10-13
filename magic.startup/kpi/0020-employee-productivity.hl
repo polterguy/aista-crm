@@ -2,7 +2,7 @@
 /*
  * KPI file for displaying funnel information.
  */
-.name:Monthly efficiency
+.name:Employee productivity
 .description:Closed activities by user for current month
 .type:pie
 .lambda

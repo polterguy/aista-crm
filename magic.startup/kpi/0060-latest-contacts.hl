@@ -3,7 +3,7 @@
  * KPI file for registered contacts.
  */
 .name:Latest contacts
-.description:5 last created contacts
+.description:10 last created contacts
 .type:table
 .lambda
    data.connect:[generic|aista-crm]
@@ -15,5 +15,5 @@
             created
          order:created
          direction:desc
-         limit:5
+         limit:10
       return-nodes:x:-/*
