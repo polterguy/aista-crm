@@ -24,6 +24,8 @@
    contacts.city.eq:string
    contacts.linkedIn.like:string
    contacts.linkedIn.eq:string
+   contacts.meta.like:string
+   contacts.meta.eq:string
    account_id.status.eq:string
    account_id.status.like:string
 .description:Returns items from your contacts table in your [generic|aista-crm] database according to the specified arguments

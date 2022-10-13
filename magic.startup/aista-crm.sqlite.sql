@@ -45,7 +45,8 @@ create table contacts(
   email text,
   country text,
   city text,
-  linkedIn text
+  linkedIn text,
+  meta text
 );
 
 
