@@ -71,7 +71,8 @@ create table activities(
   created timestamp not null default current_timestamp,
   username text not null,
   done int default 0,
-  description text
+  description text,
+  closed timestamp
 );
 
 

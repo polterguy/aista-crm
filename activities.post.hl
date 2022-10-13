@@ -39,6 +39,17 @@ data.connect:[generic|aista-crm]
    add:x:./*/data.create/*/values
       get-nodes:x:@.arguments/*
 
+   // Checking if activity was closed.
+   if
+      eq:x:@.arguments/*/done
+         .:bool:true
+      .lambda
+         date.now
+         unwrap:x:+/*/*
+         add:x:@data.connect/*/data.create/*/values
+            .
+               closed:x:@date.now
+
    // Creating our record.
    data.create
       database-type:sqlite
