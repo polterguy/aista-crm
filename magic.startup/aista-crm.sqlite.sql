@@ -108,15 +108,8 @@ create table kpi(
 insert into kpi(name, type, hyperlambda) values(
   'funnel',
   'pie',
-  '// Verifying user is authorized to access endpoint.' || char(13) || char(10) ||
-  'auth.ticket.verify:root, admin, account_manager' || char(13) || char(10) ||
-  '' || char(13) || char(10) ||
-  '// Opening up our database connection.' || char(13) || char(10) ||
   'data.connect:[generic|aista-crm]' || char(13) || char(10) ||
-  '   database-type:sqlite' || char(13) || char(10) ||
-  '' || char(13) || char(10) ||
-  '// Selecting data and returning to client.' || char(13) || char(10) ||
-  'data.select:select status, count(*) as count from accounts group by status' || char(13) || char(10) ||
-   'return:x:-/*' || char(13) || char(10)
+  '   data.select:select status as name, count(*) as value from accounts group by status' || char(13) || char(10) ||
+  '   return-nodes:x:-/*' || char(13) || char(10)
 );
 

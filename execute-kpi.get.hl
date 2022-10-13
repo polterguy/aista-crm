@@ -13,10 +13,24 @@ data.connect:[generic|aista-crm]
       table:kpi
       columns
          hyperlambda
+         type
+         name
       limit:-1
    for-each:x:@data.read/*
+      .return
       hyper2lambda:x:@.dp/#/*/hyperlambda
-      eval:x:@hyper2lambda
+      invoke:x:@hyper2lambda
+      unwrap:x:+/*/*/*
+      add:x:@.return
+         .
+            .
+               name:x:@.dp/#/*/name
+               type:x:@.dp/#/*/type
+               values
+      add:x:@.return/*/*/values
+         get-nodes:x:@invoke/*
+      add:x:../*/return
+         get-nodes:x:@.return/*
 
 // Returning result of above invocation to caller.
 return
