@@ -1,0 +1,18 @@
+
+/*
+ * KPI file for registered contacts.
+ */
+.name:Latest registrations
+.type:table
+.lambda
+   data.connect:[generic|aista-crm]
+      data.read
+         table:contacts
+         columns
+            name
+            email
+            created
+         order:created
+         direction:desc
+         limit:5
+      return-nodes:x:-/*
