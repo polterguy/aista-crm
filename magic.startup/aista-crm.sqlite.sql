@@ -79,6 +79,7 @@ create table activities(
  */
 create table tasks(
   task_id integer not null primary key autoincrement,
+  contact_id integer references contacts (contact_id),
   created timestamp not null default current_timestamp,
   username text,
   description text

@@ -63,18 +63,19 @@ data.connect:[generic|aista-crm]
       database-type:sqlite
       table:tasks
          join:contacts
-            as:contacts
+            as:contact_id
             type:left
             on
                and
-                  tasks.contact:contacts.contact_id
+                  tasks.contact_id:contact_id.contact_id
       columns
          tasks.task_id
          tasks.created
          tasks.username
          tasks.description
-         contacts.name
-            as:contacts.name
+         tasks.contact_id
+         contact_id.name
+            as:contact_id.name
       where
          and
 
