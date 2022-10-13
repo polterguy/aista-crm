@@ -14,7 +14,7 @@
    activities.description.eq:string
    activities.username.like:string
    activities.username.eq:string
-   activities.done.eq:string
+   activities.done.eq:int
    contact_id.name.eq:string
    contact_id.name.like:string
 .description:Counts items from your activities table in your [generic|aista-crm] database according to the specified arguments
