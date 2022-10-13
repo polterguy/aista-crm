@@ -93,8 +93,8 @@ data.connect:[generic|aista-crm]
          contacts.country
          contacts.city
          contacts.linkedIn
-         account_id.status
-            as:account_id.status
+         account_id.name
+            as:account_id.name
       where
          and
 

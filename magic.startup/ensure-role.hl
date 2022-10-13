@@ -1,0 +1,8 @@
+
+/*
+ * Ensure that the role required to interact with CRM
+ * system ie created.
+ */
+signal:magic.auth.ensure-role
+   role:account_manager
+   description:Account manager for Aista CRM system

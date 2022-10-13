@@ -28,6 +28,7 @@ create table accounts(
   status text not null references status(status),
   created timestamp not null default current_timestamp,
   name text not null,
+  website text not null,
   account_manager text /* Username of employee responsible for following up on account */
 );
 
@@ -38,7 +39,7 @@ create table accounts(
  */
 create table contacts(
   contact_id integer not null primary key autoincrement,
-  account_id integer not null references accounts(account_id),
+  account_id integer references accounts(account_id),
   created timestamp not null default current_timestamp,
   name text not null,
   phone text,
@@ -93,23 +94,3 @@ create table notifications(
   username text not null,
   message text not null
 );
-
-
-/*
- * KPI Hyperlambda snippets, allowing users to dynamically declare their own KPIs.
- */
-create table kpi(
-  kpi_id integer not null primary key autoincrement,
-  name text not null unique,
-  type text not null,
-  hyperlambda text not null
-);
-
-insert into kpi(name, type, hyperlambda) values(
-  'funnel',
-  'pie',
-  'data.connect:[generic|aista-crm]' || char(13) || char(10) ||
-  '   data.select:select status as name, count(*) as value from accounts group by status' || char(13) || char(10) ||
-  '   return-nodes:x:-/*' || char(13) || char(10)
-);
-

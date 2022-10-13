@@ -4,19 +4,20 @@
  * This file was automatically generated using Magic's CRUDifier.
  */
 .arguments
+   limit:long
+   offset:long
+   order:string
+   direction:string
    operator:string
-   accounts.account_id.eq:long
-   accounts.status.like:string
-   accounts.status.eq:string
-   accounts.created.eq:date
-   accounts.name.like:string
-   accounts.name.eq:string
-   accounts.account_manager.like:string
-   accounts.account_manager.eq:string
-   accounts.website.like:string
-   accounts.website.eq:string
-.description:Counts items from your accounts table in your [generic|aista-crm] database according to the specified arguments
-.type:crud-count
+   username.eq:string
+   username.like:string
+   locked.eq:bool
+   created.mt:date
+   created.lt:date
+   created.mteq:date
+   created.lteq:date
+.description:Returns items from your users table in your [generic|magic] database according to the specified arguments
+.type:crud-read
 
 // Verifying user is authorized to access endpoint.
 auth.ticket.verify:root, admin, account_manager
@@ -39,26 +40,33 @@ if
          get-value:x:@.arguments/*/operator
 
 // Opening up our database connection.
-data.connect:[generic|aista-crm]
+data.connect:[generic|magic]
    database-type:sqlite
 
    // Parametrising our read invocation.
    add:x:./*/data.read
-      get-nodes:x:@.arguments/*/operator
+      get-nodes:x:@.arguments/*/limit
+      get-nodes:x:@.arguments/*/offset
+      get-nodes:x:@.arguments/*/order
+      get-nodes:x:@.arguments/*/direction
    remove-nodes:x:@.arguments/*/operator
-   add:x:+/*/where/*
+   remove-nodes:x:@.arguments/*/limit
+   remove-nodes:x:@.arguments/*/offset
+   remove-nodes:x:@.arguments/*/order
+   remove-nodes:x:@.arguments/*/direction
+   add:x:./*/data.read/*/where/*
       get-nodes:x:@.arguments/*
 
    // Reading data from database.
    data.read
       database-type:sqlite
-      table:accounts
+      table:users
       columns
-         count(*)
-            as:count
+         users.username
+         users.locked
+         users.created
       where
          and
-      limit:long:1
 
    // Returning result of above read invocation to caller.
-   return-nodes:x:@data.read/*/*
+   return-nodes:x:@data.read/*

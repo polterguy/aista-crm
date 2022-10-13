@@ -29,6 +29,10 @@ auth.ticket.verify:root, admin, account_manager
       foreign_name:status
       long:bool:true
 
+// Sanity checking invocation
+validators.email:x:@.arguments/*/email
+validators.url:x:@.arguments/*/linkedIn
+
 // Opening up database connection.
 data.connect:[generic|aista-crm]
    database-type:sqlite

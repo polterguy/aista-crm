@@ -9,7 +9,7 @@
 .type:crud-delete
 
 // Verifying user is authorized to access endpoint.
-auth.ticket.verify:root, admin, account_manager
+auth.ticket.verify:root, admin
 auth.ticket.get
 lambda2hyper:x:@.arguments/*
 log.info:aista-crm.contacts entry deleted

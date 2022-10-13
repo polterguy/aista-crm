@@ -4,33 +4,30 @@
  * Executes all KPI Hyperlambda snippets and returns to caller.
  */
 .description:Executes all KPI Hyperlambda snippets and returns to caller
+auth.ticket.verify:root, admin, account_manager
 
-// Opening up our database connection.
-data.connect:[generic|aista-crm]
-   database-type:sqlite
-   
-   data.read
-      table:kpi
-      columns
-         hyperlambda
-         type
-         name
-      limit:-1
-   for-each:x:@data.read/*
-      .return
-      hyper2lambda:x:@.dp/#/*/hyperlambda
-      invoke:x:@hyper2lambda
-      unwrap:x:+/*/*/*
-      add:x:@.return
-         .
+// Iterating through all files in kpi foled and executing
+io.file.list:/modules/aista-crm/magic.startup/kpi/
+for-each:x:-/*
+   if
+      strings.ends-with:x:@.dp/#
+         .:.hl
+      .lambda
+         .return
+         io.file.load:x:@.dp/#
+         hyper2lambda:x:-
+         invoke:x:@hyper2lambda/*/.lambda
+         unwrap:x:+/*/*/*
+         add:x:@.return
             .
-               name:x:@.dp/#/*/name
-               type:x:@.dp/#/*/type
-               values
-      add:x:@.return/*/*/values
-         get-nodes:x:@invoke/*
-      add:x:../*/return
-         get-nodes:x:@.return/*
+               .
+                  name:x:@hyper2lambda/*/.name
+                  type:x:@hyper2lambda/*/.type
+                  values
+         add:x:@.return/*/*/values
+            get-nodes:x:@invoke/*
+         add:x:../*/return
+            get-nodes:x:@.return/*
 
 // Returning result of above invocation to caller.
 return

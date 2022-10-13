@@ -17,6 +17,8 @@
    accounts.name.eq:string
    accounts.account_manager.like:string
    accounts.account_manager.eq:string
+   accounts.website.like:string
+   accounts.website.eq:string
 .description:Returns items from your accounts table in your [generic|aista-crm] database according to the specified arguments
 .type:crud-read
 .handling
@@ -70,6 +72,7 @@ data.connect:[generic|aista-crm]
          accounts.created
          accounts.name
          accounts.account_manager
+         accounts.website
       where
          and
 
