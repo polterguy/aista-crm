@@ -1,0 +1,19 @@
+
+/*
+ * KPI file for displaying funnel information.
+ */
+.name:Monthly efficiency
+.description:Closed activities by user for current month
+.type:pie
+.lambda
+   data.connect:[generic|aista-crm]
+      date.now
+      date.format:x:-
+         format:yyyy-MM-dd
+      data.select:@"
+select username as name, count(*) as value
+   from activities
+      where closed > @date
+   group by username"
+         @date:x:@date.format
+      return-nodes:x:-/*

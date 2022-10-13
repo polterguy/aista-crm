@@ -23,6 +23,7 @@ for-each:x:-/*
                .
                   name:x:@hyper2lambda/*/.name
                   type:x:@hyper2lambda/*/.type
+                  description:x:@hyper2lambda/*/.description
                   values
          add:x:@.return/*/*/values
             get-nodes:x:@invoke/*

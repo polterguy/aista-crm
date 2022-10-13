@@ -2,7 +2,8 @@
 /*
  * KPI file for registered contacts.
  */
-.name:Latest registrations
+.name:Latest contacts
+.description:5 last created contacts
 .type:table
 .lambda
    data.connect:[generic|aista-crm]

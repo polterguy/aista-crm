@@ -3,6 +3,7 @@
  * KPI file for new activities.
  */
 .name:New activities
+.description:New activities per day the last 14 days
 .type:line
 .lambda
    .now

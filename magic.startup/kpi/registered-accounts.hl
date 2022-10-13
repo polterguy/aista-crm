@@ -3,6 +3,7 @@
  * KPI file for registered accounts.
  */
 .name:Latest accounts
+.description:5 last created accounts
 .type:table
 .lambda
    data.connect:[generic|aista-crm]

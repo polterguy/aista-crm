@@ -3,6 +3,7 @@
  * KPI file for displaying funnel information.
  */
 .name:Funnel
+.description:Status of funnel
 .type:pie
 .lambda
    data.connect:[generic|aista-crm]

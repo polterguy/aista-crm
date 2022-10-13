@@ -3,6 +3,7 @@
  * KPI file for closed activities.
  */
 .name:Closed activities
+.description:Closed activities per day the last 14 days
 .type:line
 .lambda
    .now

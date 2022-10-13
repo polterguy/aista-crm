@@ -3,6 +3,7 @@
  * KPI file for displaying workload information.
  */
 .name:Workload
+.description:Accounts per user
 .type:pie
 .lambda
    data.connect:[generic|aista-crm]

@@ -3,6 +3,7 @@
  * KPI file for contacts that was created.
  */
 .name:New contacts
+.description:New contacts per day the last 14 days
 .type:line
 .lambda
    .now
