@@ -1,8 +1,8 @@
 
 /*
- * KPI file for contacts that was created.
+ * KPI file for accounts that was created.
  */
-.name:New contacts
+.name:New accounts
 .type:line
 .lambda
    .now
@@ -26,7 +26,7 @@
             date.format:x:@.max
                format:yyyy-MM-dd
             data.read
-               table:contacts
+               table:accounts
                columns
                   count(*)
                      as:name
