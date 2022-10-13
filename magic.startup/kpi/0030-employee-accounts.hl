@@ -2,7 +2,7 @@
 /*
  * KPI file for displaying workload information.
  */
-.name:Employee workload
+.name:Employee accounts
 .description:Accounts per user
 .type:pie
 .lambda

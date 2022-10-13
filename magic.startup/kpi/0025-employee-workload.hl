@@ -1,0 +1,15 @@
+
+/*
+ * KPI file for displaying funnel information.
+ */
+.name:Employee workload
+.description:Open activities by user
+.type:pie
+.lambda
+   data.connect:[generic|aista-crm]
+      data.select:@"
+select username as name, count(*) as value
+   from activities
+   where closed is null
+   group by username"
+      return-nodes:x:-/*
