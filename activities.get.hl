@@ -16,6 +16,9 @@
    activities.created.eq:date
    activities.description.like:string
    activities.description.eq:string
+   activities.username.like:string
+   activities.username.eq:string
+   activities.done.eq:string
    contact_id.name.eq:string
    contact_id.name.like:string
 .description:Returns items from your activities table in your [generic|aista-crm] database according to the specified arguments
@@ -77,6 +80,8 @@ data.connect:[generic|aista-crm]
          activities.type
          activities.created
          activities.description
+         activities.username
+         activities.done
          contact_id.name
             as:contact_id.name
       where

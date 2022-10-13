@@ -15,6 +15,7 @@
    tasks.username.eq:string
    tasks.description.like:string
    tasks.description.eq:string
+   tasks.done.eq:bool
 .description:Returns items from your tasks table in your [generic|aista-crm] database according to the specified arguments
 .type:crud-read
 .handling
@@ -74,6 +75,7 @@ data.connect:[generic|aista-crm]
          tasks.username
          tasks.description
          tasks.contact_id
+         tasks.done
          contact_id.name
             as:contact_id.name
       where

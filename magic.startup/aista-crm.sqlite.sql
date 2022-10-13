@@ -66,22 +66,11 @@ insert into activity_types(type, description) values ('Email', 'An email was sen
 
 create table activities(
   activity_id integer not null primary key autoincrement,
-  contact_id integer not null references contacts (contact_id),
   type text not null references activity_types(type),
-  created timestamp not null default current_timestamp,
-  description text not null
-);
-
-
-/*
- * Tasks that have been done or should be done. Each task is associated
- * with a user in the system.
- */
-create table tasks(
-  task_id integer not null primary key autoincrement,
   contact_id integer references contacts (contact_id),
   created timestamp not null default current_timestamp,
-  username text,
+  username text not null,
+  done bool,
   description text
 );
 
