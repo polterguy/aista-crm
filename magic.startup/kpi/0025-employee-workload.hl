@@ -10,6 +10,6 @@
       data.select:@"
 select username as name, count(*) as value
    from activities
-   where closed is null
+   where done=0 or done is null
    group by username"
       return-nodes:x:-/*
