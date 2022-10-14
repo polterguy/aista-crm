@@ -53,6 +53,14 @@ data.connect:[generic|aista-crm]
          add:x:@data.connect/*/data.update/*/values
             .
                closed:x:@date.now
+   else-if
+      eq:x:@.arguments/*/done
+         .:bool:false
+      .lambda
+         remove-nodes:x:@.arguments/*/done
+         add:x:@data.connect/*/data.update/*/values
+            .
+               closed
 
    // Parametrising our invocation.
    add:x:./*/data.update/*/values
