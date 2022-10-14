@@ -13,6 +13,11 @@
 
 // Verifying user is authorized to access endpoint.
 auth.ticket.verify:root, admin, account_manager
+auth.ticket.get
+lambda2hyper:x:@.arguments/*
+log.info:Aista CRM - Status created
+   username:x:@auth.ticket.get
+   arguments:x:@lambda2hyper
 
 // Opening up database connection.
 data.connect:[generic|aista-crm]

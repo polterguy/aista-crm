@@ -16,7 +16,7 @@ validators.mandatory:x:@.arguments/*/status
 auth.ticket.verify:root, admin, account_manager
 auth.ticket.get
 lambda2hyper:x:@.arguments/*
-log.info:Aista CRM - status entry updated
+log.info:Aista CRM - Status updated
    username:x:@auth.ticket.get
    arguments:x:@lambda2hyper
 

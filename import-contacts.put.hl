@@ -55,6 +55,24 @@ data.connect:aista-crm
                            .
                               source:imported
 
+                  // Making sure we create a DateTime object out of [created] if specified.
+                  if
+                     and
+                        exists:x:@.dp/#/*/created
+                        not-null:x:@.dp/#/*/created
+                     .lambda
+                        set-value:x:@.dp/#/*/created
+                           strings.replace:x:@.dp/#/*/created
+                              .:T
+                              .:" "
+                        strings.split:x:@.dp/#/*/created
+                           .:+
+                        set-value:x:@.dp/#/*/created
+                           get-value:x:@strings.split/0
+                        set-value:x:@.dp/#/*/created
+                           convert:x:@.dp/#/*/created
+                              type:date
+
                   // Paramettising [data.create] invocation and importing iterated record.
                   add:x:./*/data.create/*/values
                      get-nodes:x:@.dp/#/*/email
@@ -76,7 +94,7 @@ data.connect:aista-crm
 
 // Doing some logging.
 auth.ticket.get
-log.info:"Aista-CRM - Contacts imported"
+log.info:"Aista CRM - Contacts imported"
    imported:x:@.imported
    skipped:x:@.skipped
    username:x:@auth.ticket.get

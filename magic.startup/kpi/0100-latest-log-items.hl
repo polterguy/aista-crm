@@ -1,0 +1,25 @@
+
+/*
+ * KPI file for latest log items.
+ */
+.name:Latest log items
+.description:10 last log items
+.type:table
+.lambda
+   data.connect:[generic|magic]
+      data.read
+         table:log_entries
+         columns
+            type
+            content
+         where
+            and
+               content.like:"Aista CRM - %"
+         order:created
+         direction:desc
+         limit:10
+      for-each:x:@data.read/*
+         set-value:x:@.dp/#/*/content
+            strings.substring:x:@.dp/#/*/content
+               .:int:12
+      return-nodes:x:@data.read/*

@@ -25,7 +25,7 @@ validators.mandatory:x:@.arguments/*/contact_id
 auth.ticket.verify:root, admin, account_manager
 auth.ticket.get
 lambda2hyper:x:@.arguments/*
-log.info:Aista CRM - contacts entry updated
+log.info:Aista CRM - Contact updated
    username:x:@auth.ticket.get
    arguments:x:@lambda2hyper
 .foreign-keys
