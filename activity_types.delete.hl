@@ -12,7 +12,7 @@
 auth.ticket.verify:root, admin
 auth.ticket.get
 lambda2hyper:x:@.arguments/*
-log.info:aista-crm.activity_types entry deleted
+log.info:Aista CRM - activity_types entry deleted
    username:x:@auth.ticket.get
    arguments:x:@lambda2hyper
 validators.mandatory:x:@.arguments/*/type

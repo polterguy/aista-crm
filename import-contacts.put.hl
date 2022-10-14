@@ -7,6 +7,9 @@
       name:string
       stream:*
 
+// Verifying user has access to invoke endpoint.
+auth.ticket.verify:root, admin, account_manager
+
 // Opening up and loading stream.
 io.stream.read:x:@.arguments/*/file/*/stream
 
@@ -70,6 +73,13 @@ data.connect:aista-crm
                math.increment:x:@.skipped
       else
          math.increment:x:@.skipped
+
+// Doing some logging.
+auth.ticket.get
+log.info:"Aista-CRM - Contacts imported"
+   imported:x:@.imported
+   skipped:x:@.skipped
+   username:x:@auth.ticket.get
 
 // Returning success to caller.
 unwrap:x:+/*
