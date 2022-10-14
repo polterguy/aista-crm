@@ -100,6 +100,7 @@ data.connect:[generic|aista-crm]
          activities.description
          activities.username
          activities.closed
+         activities.due
          contact_id.name
             as:contact_id.name
       where

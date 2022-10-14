@@ -9,6 +9,7 @@
    description:string
    username:string
    contact_id:long
+   due:date
    done:bool
 .description:Creates an item in your activities table in your [generic|aista-crm] database according to the specified arguments
 .type:crud-create

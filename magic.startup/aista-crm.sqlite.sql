@@ -69,6 +69,7 @@ create table activities(
   type text not null references activity_types(type),
   contact_id integer references contacts (contact_id),
   created timestamp not null default current_timestamp,
+  due timestamp,
   username text not null,
   description text,
   closed timestamp

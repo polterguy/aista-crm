@@ -9,6 +9,7 @@
    type:string
    description:string
    username:string
+   due:date
    done:bool
 .description:Updates an existing item in your activities table in your [generic|aista-crm] database according to the specified arguments
 .type:crud-update
