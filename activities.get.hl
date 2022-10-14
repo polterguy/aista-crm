@@ -18,7 +18,7 @@
    activities.description.eq:string
    activities.username.like:string
    activities.username.eq:string
-   activities.done.eq:int
+   activities.done.eq:bool
    contact_id.name.eq:string
    contact_id.name.like:string
 .description:Returns items from your activities table in your [generic|aista-crm] database according to the specified arguments
@@ -49,6 +49,24 @@ if
 // Opening up our database connection.
 data.connect:[generic|aista-crm]
    database-type:sqlite
+
+   // Checking if caller wants to filter according to done.
+   if
+      eq:x:@.arguments/*/activities.done.eq
+         .:bool:true
+      .lambda
+         add:x:@data.connect/*/data.read/*/where/*/and
+            .
+               activities.closed.neq
+         remove-nodes:x:@.arguments/*/activities.done.eq
+   else-if
+      eq:x:@.arguments/*/activities.done.eq
+         .:bool:false
+      .lambda
+         add:x:@data.connect/*/data.read/*/where/*/and
+            .
+               activities.closed.eq
+         remove-nodes:x:@.arguments/*/activities.done.eq
 
    // Parametrising our read invocation.
    add:x:./*/data.read
@@ -81,11 +99,24 @@ data.connect:[generic|aista-crm]
          activities.created
          activities.description
          activities.username
-         activities.done
+         activities.closed
          contact_id.name
             as:contact_id.name
       where
          and
+
+   // Adding done projections.
+   for-each:x:@data.read/*
+      if
+         null:x:@.dp/#/*/closed
+         .lambda
+            add:x:@.dp/#
+               .
+                  done:bool:false
+      else
+         add:x:@.dp/#
+            .
+               done:bool:true
 
    // Returning result of above read invocation to caller.
    return-nodes:x:@data.read/*

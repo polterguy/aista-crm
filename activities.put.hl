@@ -41,22 +41,23 @@ log.info:aista-crm.activities entry updated
 data.connect:[generic|aista-crm]
    database-type:sqlite
 
-   // Parametrising our invocation.
-   add:x:./*/data.update/*/values
-      get-nodes:x:@.arguments/*/[1,1000]
-   add:x:./*/data.update/*/where/*/and
-      get-nodes:x:@.arguments/*/[0,1]
-
    // Checking if activity was closed.
    if
       eq:x:@.arguments/*/done
          .:bool:true
       .lambda
+         remove-nodes:x:@.arguments/*/done
          date.now
          unwrap:x:+/*/*
          add:x:@data.connect/*/data.update/*/values
             .
                closed:x:@date.now
+
+   // Parametrising our invocation.
+   add:x:./*/data.update/*/values
+      get-nodes:x:@.arguments/*/[1,1000]
+   add:x:./*/data.update/*/where/*/and
+      get-nodes:x:@.arguments/*/[0,1]
 
    // Invoking our update slot.
    data.update

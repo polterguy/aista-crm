@@ -70,7 +70,6 @@ create table activities(
   contact_id integer references contacts (contact_id),
   created timestamp not null default current_timestamp,
   username text not null,
-  done int default 0,
   description text,
   closed timestamp
 );

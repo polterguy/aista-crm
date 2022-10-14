@@ -14,7 +14,7 @@
    activities.description.eq:string
    activities.username.like:string
    activities.username.eq:string
-   activities.done.eq:int
+   activities.done.eq:bool
    contact_id.name.eq:string
    contact_id.name.like:string
 .description:Counts items from your activities table in your [generic|aista-crm] database according to the specified arguments
@@ -43,6 +43,18 @@ if
 // Opening up our database connection.
 data.connect:[generic|aista-crm]
    database-type:sqlite
+
+   // Checking if caller wants to filter according to done.
+   if
+      eq:x:@.arguments/*/activities.done.eq
+         .:bool:true
+      .lambda
+         add:x:@data.connect/*/data.read/*/where/*/and
+            .
+               activities.closed.neq
+         remove-nodes:x:@.arguments/*/activities.done.eq
+   else
+      remove-nodes:x:@.arguments/*/activities.done.eq
 
    // Parametrising our read invocation.
    add:x:./*/data.read

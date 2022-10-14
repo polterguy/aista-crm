@@ -13,7 +13,7 @@
       data.select:@"
 select username as name, count(*) as value
    from activities
-      where closed > @date and done = 1
+      where closed > @date
    group by username"
          @date:x:@date.format
       return-nodes:x:-/*
