@@ -15,12 +15,14 @@ convert:x:-
    type:string
 csv2lambda:x:-
 
-// Counting imported items.
+// Used for counting imported and skipped items.
 .imported:long:0
 .skipped:long:0
 
-// Inserting items into contacts table, unless email already exists.
+// Opening up database connection.
 data.connect:aista-crm
+
+   // Looping through each CSV record.
    for-each:x:@csv2lambda/*
    
       // Sanity checking that we've at the very least got email in our record.
@@ -29,6 +31,8 @@ data.connect:aista-crm
             exists:x:@.dp/#/*/email
             not-null:x:@.dp/#/*/email
          .lambda
+
+            // Verifying contact does not exist from before.
             data.read
                table:contacts
                values
@@ -39,6 +43,16 @@ data.connect:aista-crm
             if
                not-exists:x:@data.read/*
                .lambda
+
+                  // Defaulting [source] to "imported", unless explicitly given.
+                  if
+                     not-exists:x:@.dp/#/*/source
+                     .lambda
+                        add:x:@.dp/#/
+                           .
+                              source:imported
+
+                  // Paramettising [data.create] invocation and importing iterated record.
                   add:x:./*/data.create/*/values
                      get-nodes:x:@.dp/#/*/email
                      get-nodes:x:@.dp/#/*/name
@@ -47,6 +61,7 @@ data.connect:aista-crm
                      get-nodes:x:@.dp/#/*/city
                      get-nodes:x:@.dp/#/*/linkedIn
                      get-nodes:x:@.dp/#/*/meta
+                     get-nodes:x:@.dp/#/*/created
                   data.create
                      table:contacts
                      values
@@ -59,7 +74,6 @@ data.connect:aista-crm
 // Returning success to caller.
 unwrap:x:+/*
 return
-   result:success
    imported:x:@.imported
    skipped:x:@.skipped
 
