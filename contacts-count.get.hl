@@ -22,6 +22,8 @@
    contacts.linkedIn.eq:string
    contacts.meta.like:string
    contacts.meta.eq:string
+   contacts.source.like:string
+   contacts.source.eq:string
    account_id.name.eq:string
    account_id.name.like:string
 .description:Counts items from your contacts table in your [generic|aista-crm] database according to the specified arguments

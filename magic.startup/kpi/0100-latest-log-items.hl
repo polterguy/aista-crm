@@ -10,8 +10,8 @@
       data.read
          table:log_entries
          columns
-            type
             content
+            created
          where
             and
                content.like:"Aista CRM - %"
