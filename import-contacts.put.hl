@@ -1,0 +1,65 @@
+
+/*
+ * Import contacts endpoint for importing CSV files containing contacts.
+ */
+.arguments
+   file
+      name:string
+      stream:*
+
+// Opening up and loading stream.
+io.stream.read:x:@.arguments/*/file/*/stream
+
+// Converting CSV content to lambda object.
+convert:x:-
+   type:string
+csv2lambda:x:-
+
+// Counting imported items.
+.imported:long:0
+.skipped:long:0
+
+// Inserting items into contacts table, unless email already exists.
+data.connect:aista-crm
+   for-each:x:@csv2lambda/*
+   
+      // Sanity checking that we've at the very least got email in our record.
+      if
+         and
+            exists:x:@.dp/#/*/email
+            not-null:x:@.dp/#/*/email
+         .lambda
+            data.read
+               table:contacts
+               values
+                  contact_id
+               where
+                  and
+                     email.eq:x:@.dp/#/*/email
+            if
+               not-exists:x:@data.read/*
+               .lambda
+                  add:x:./*/data.create/*/values
+                     get-nodes:x:@.dp/#/*/email
+                     get-nodes:x:@.dp/#/*/name
+                     get-nodes:x:@.dp/#/*/phone
+                     get-nodes:x:@.dp/#/*/country
+                     get-nodes:x:@.dp/#/*/city
+                     get-nodes:x:@.dp/#/*/linkedIn
+                     get-nodes:x:@.dp/#/*/meta
+                  data.create
+                     table:contacts
+                     values
+                  math.increment:x:@.imported
+            else
+               math.increment:x:@.skipped
+      else
+         math.increment:x:@.skipped
+
+// Returning success to caller.
+unwrap:x:+/*
+return
+   result:success
+   imported:x:@.imported
+   skipped:x:@.skipped
+
