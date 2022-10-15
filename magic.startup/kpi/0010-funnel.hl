@@ -4,6 +4,7 @@
  */
 .name:Funnel
 .description:Status of funnel
+.enabled:bool:true
 .type:pie
 .lambda
    data.connect:[generic|aista-crm]

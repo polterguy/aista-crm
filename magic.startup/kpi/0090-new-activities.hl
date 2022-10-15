@@ -4,6 +4,7 @@
  */
 .name:New activities
 .description:New activities per day the last 14 days
+.enabled:bool:false
 .type:line
 .lambda
    .now

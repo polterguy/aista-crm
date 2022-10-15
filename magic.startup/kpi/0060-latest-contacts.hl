@@ -4,6 +4,7 @@
  */
 .name:Latest contacts
 .description:10 last created contacts
+.enabled:bool:true
 .type:table
 .lambda
    data.connect:[generic|aista-crm]

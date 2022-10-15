@@ -4,6 +4,7 @@
  */
 .name:Employee workload
 .description:Open activities by user
+.enabled:bool:false
 .type:pie
 .lambda
    data.connect:[generic|aista-crm]

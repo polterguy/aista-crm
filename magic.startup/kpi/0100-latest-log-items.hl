@@ -4,6 +4,7 @@
  */
 .name:Latest log items
 .description:10 last log items
+.enabled:bool:true
 .type:table
 .lambda
    data.connect:[generic|magic]

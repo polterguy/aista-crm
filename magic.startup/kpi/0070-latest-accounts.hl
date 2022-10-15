@@ -4,6 +4,7 @@
  */
 .name:Latest accounts
 .description:10 last created accounts
+.enabled:bool:false
 .type:table
 .lambda
    data.connect:[generic|aista-crm]

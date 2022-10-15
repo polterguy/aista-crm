@@ -4,6 +4,7 @@
  */
 .name:New accounts
 .description:New accounts per day the last 14 days
+.enabled:bool:false
 .type:line
 .lambda
    .now

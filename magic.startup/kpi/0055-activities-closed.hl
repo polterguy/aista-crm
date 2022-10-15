@@ -1,10 +1,10 @@
 
 /*
- * KPI file for closed activities.
+ * KPI file for contacts that was created.
  */
 .name:Closed activities
-.description:Closed activities per day the last 14 days
-.enabled:bool:false
+.description:Closed activities each day the last 30 days
+.enabled:bool:true
 .type:line
 .lambda
    .now
@@ -12,7 +12,7 @@
       math.subtract
          date.now
          time
-            days:13
+            days:29
    data.connect:[generic|aista-crm]
       while
          lt:x:@.now

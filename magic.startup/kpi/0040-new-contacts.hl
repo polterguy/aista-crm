@@ -4,6 +4,7 @@
  */
 .name:New contacts
 .description:New contacts per day the last 30 days
+.enabled:bool:true
 .type:line
 .lambda
    .now
