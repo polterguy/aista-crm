@@ -86,5 +86,6 @@ create table activities(
  */
 create table email_templates(
   email_template_id integer not null primary key autoincrement,
+  name text not null,
   content text
 );

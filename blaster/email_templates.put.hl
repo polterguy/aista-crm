@@ -5,6 +5,7 @@
  */
 .arguments
    email_template_id:long
+   name:string
    content:string
 .description:Updates an existing item in your email_templates table in your [generic|aista-crm] database according to the specified arguments
 .type:crud-update

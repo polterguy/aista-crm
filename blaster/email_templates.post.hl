@@ -5,6 +5,7 @@
  */
 .arguments
    content:string
+   name:string
 .description:Creates an item in your email_templates table in your [generic|aista-crm] database according to the specified arguments
 .type:crud-create
 

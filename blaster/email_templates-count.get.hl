@@ -6,6 +6,8 @@
 .arguments
    operator:string
    email_templates.email_template_id.eq:long
+   email_templates.name.like:string
+   email_templates.name.eq:string
    email_templates.content.like:string
    email_templates.content.eq:string
 .description:Counts items from your email_templates table in your [generic|aista-crm] database according to the specified arguments

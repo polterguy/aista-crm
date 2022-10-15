@@ -10,6 +10,8 @@
    direction:string
    operator:string
    email_templates.email_template_id.eq:long
+   email_templates.name.like:string
+   email_templates.name.eq:string
    email_templates.content.like:string
    email_templates.content.eq:string
 .description:Returns items from your email_templates table in your [generic|aista-crm] database according to the specified arguments
@@ -59,6 +61,7 @@ data.connect:[generic|aista-crm]
       table:email_templates
       columns
          email_templates.email_template_id
+         email_templates.name
          email_templates.content
       where
          and
