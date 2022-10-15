@@ -13,6 +13,7 @@
    accounts.name.eq:string
    accounts.account_manager.like:string
    accounts.account_manager.eq:string
+   accounts.description.like:string
    accounts.website.like:string
    accounts.website.eq:string
 .description:Counts items from your accounts table in your [generic|aista-crm] database according to the specified arguments

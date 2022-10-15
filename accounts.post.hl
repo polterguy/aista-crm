@@ -8,6 +8,7 @@
    name:string
    account_manager:string
    website:string
+   description:string
 .description:Creates an item in your accounts table in your [generic|aista-crm] database according to the specified arguments
 .type:crud-create
 .handling

@@ -29,6 +29,7 @@ create table accounts(
   created timestamp not null default current_timestamp,
   name text not null,
   website text,
+  description text,
   account_manager text /* Username of employee responsible for following up on account */
 );
 
