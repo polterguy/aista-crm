@@ -63,6 +63,7 @@ create table activity_types(
   description text
 );
 
+insert into activity_types(type, description) values ('Misc', 'Misc activity');
 insert into activity_types(type, description) values ('Phone', 'A phone call was made');
 insert into activity_types(type, description) values ('Meeting', 'A meeting was held');
 insert into activity_types(type, description) values ('Email', 'An email was sent');
