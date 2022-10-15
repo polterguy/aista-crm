@@ -73,7 +73,7 @@ data.connect:aista-crm
                            convert:x:@.dp/#/*/created
                               type:date
 
-                  // Paramettising [data.create] invocation and importing iterated record.
+                  // Parametrising [data.create] invocation and importing iterated record.
                   add:x:./*/data.create/*/values
                      get-nodes:x:@.dp/#/*/email
                      get-nodes:x:@.dp/#/*/name
@@ -96,7 +96,7 @@ data.connect:aista-crm
 
 // Doing some logging.
 auth.ticket.get
-log.info:"Aista CRM - Contacts imported"
+log.info:"Aista CRM - Contacts imported from CSV file"
    imported:x:@.imported
    skipped:x:@.skipped
    username:x:@auth.ticket.get
