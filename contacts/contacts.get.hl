@@ -28,6 +28,7 @@
    contacts.source.eq:string
    contacts.meta.like:string
    contacts.meta.eq:string
+   contacts.subscriber.eq:bool
    account_id.name.eq:string
    account_id.name.like:string
    account.description.like
@@ -98,10 +99,15 @@ data.connect:[generic|aista-crm]
          contacts.linkedIn
          contacts.source
          contacts.description
+         contacts.subscriber
          account_id.name
             as:account_id.name
       where
          and
+   set-value:x:@data.read/*/*/subscriber/=0
+      .:bool:false
+   set-value:x:@data.read/*/*/subscriber/=1
+      .:bool:true
 
    // Returning result of above read invocation to caller.
    return-nodes:x:@data.read/*

@@ -50,7 +50,8 @@ create table contacts(
   linkedIn text,
   source text,
   meta text,
-  description text
+  description text,
+  subscriber boolean default false
 );
 
 
