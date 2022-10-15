@@ -3,7 +3,7 @@
  * KPI file for displaying funnel information.
  */
 .name:Funnel
-.description:Status of funnel
+.description:Funnel status
 .enabled:bool:true
 .type:pie
 .lambda
