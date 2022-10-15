@@ -4,7 +4,7 @@
  */
 .name:Employee productivity
 .description:Closed activities by user for current month
-.enabled:bool:true
+.enabled:bool:false
 .type:pie
 .lambda
    data.connect:[generic|aista-crm]
