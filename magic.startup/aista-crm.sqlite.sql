@@ -79,3 +79,12 @@ create table activities(
   description text,
   closed timestamp
 );
+
+
+/*
+ * Email templates, used in blaster module.
+ */
+create table email_templates(
+  email_template_id integer not null primary key autoincrement,
+  content text
+);
