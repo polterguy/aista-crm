@@ -26,6 +26,7 @@
    contacts.source.eq:string
    account_id.name.eq:string
    account_id.name.like:string
+   account.description.like:string
 .description:Counts items from your contacts table in your [generic|aista-crm] database according to the specified arguments
 .type:crud-count
 

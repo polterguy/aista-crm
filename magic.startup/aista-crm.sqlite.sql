@@ -49,7 +49,8 @@ create table contacts(
   city text,
   linkedIn text,
   source text,
-  meta text
+  meta text,
+  description text
 );
 
 

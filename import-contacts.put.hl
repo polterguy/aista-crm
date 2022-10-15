@@ -84,6 +84,7 @@ data.connect:aista-crm
                      get-nodes:x:@.dp/#/*/meta
                      get-nodes:x:@.dp/#/*/created
                      get-nodes:x:@.dp/#/*/source
+                     get-nodes:x:@.dp/#/*/description
                   data.create
                      table:contacts
                      values
