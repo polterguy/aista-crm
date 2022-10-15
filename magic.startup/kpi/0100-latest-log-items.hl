@@ -1,6 +1,6 @@
 
 /*
- * KPI file for latest log items.
+ * KPI file for displaying 10 last log items.
  */
 .name:Latest log items
 .description:10 last log items

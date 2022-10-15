@@ -1,6 +1,6 @@
 
 /*
- * KPI file for displaying workload information.
+ * KPI file for displaying accounts per user.
  */
 .name:Employee accounts
 .description:Accounts per user

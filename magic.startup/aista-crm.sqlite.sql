@@ -75,15 +75,3 @@ create table activities(
   description text,
   closed timestamp
 );
-
-
-/*
- * Notifications sent to users about important information, such that
- * an account or a lead has been assigned to the user, etc.
- */
-create table notifications(
-  notification_id integer not null primary key autoincrement,
-  created timestamp not null default current_timestamp,
-  username text not null,
-  message text not null
-);

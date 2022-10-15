@@ -1,6 +1,6 @@
 
 /*
- * KPI file for registered accounts.
+ * KPI file for displaying the 10 last created accounts.
  */
 .name:Latest accounts
 .description:10 last created accounts

@@ -1,6 +1,6 @@
 
 /*
- * KPI file for displaying funnel information.
+ * KPI file for displaying workload for each user.
  */
 .name:Employee workload
 .description:Open activities by user
