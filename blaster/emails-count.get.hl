@@ -11,8 +11,6 @@
    emails.title.eq:string
    emails.content.like:string
    emails.content.eq:string
-   email_template_id.type.eq:string
-   email_template_id.type.like:string
 .description:Counts items from your emails table in your [generic|aista-crm] database according to the specified arguments
 .type:crud-count
 
@@ -51,12 +49,6 @@ data.connect:[generic|aista-crm]
    data.read
       database-type:sqlite
       table:emails
-         join:activity_types
-            as:email_template_id
-            type:left
-            on
-               and
-                  emails.email_template_id:email_template_id.type
       columns
          count(*)
             as:count

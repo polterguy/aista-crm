@@ -62,19 +62,12 @@ data.connect:[generic|aista-crm]
    data.read
       database-type:sqlite
       table:emails
-         join:activity_types
-            as:email_template_id
-            type:left
-            on
-               and
-                  emails.email_template_id:email_template_id.type
       columns
          emails.email_id
          emails.email_template_id
          emails.title
          emails.content
-         email_template_id.type
-            as:email_template_id.type
+         emails.created
       where
          and
 

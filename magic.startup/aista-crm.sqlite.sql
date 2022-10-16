@@ -92,7 +92,8 @@ create table email_templates(
 
 create table emails(
   email_id integer primary key autoincrement,
-  email_template_id integer references activity_types(type),
+  created timestamp not null default current_timestamp,
+  email_template_id integer references email_templates(email_template_id),
   title text not null,
   content text
 );

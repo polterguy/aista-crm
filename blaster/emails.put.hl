@@ -12,7 +12,6 @@
 .type:crud-update
 
 // Verifying user is authorized to access endpoint.
-validators.mandatory:x:@.arguments/*/email_id
 auth.ticket.verify:root, admin, account_manager
 .foreign-keys
    .
