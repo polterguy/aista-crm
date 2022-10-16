@@ -1,0 +1,42 @@
+
+/*
+ * Template for HTTP POST CRUD requests.
+ * This file was automatically generated using Magic's CRUDifier.
+ */
+.arguments
+   email_template_id:long
+   title:string
+   content:string
+.description:Creates an item in your emails table in your [generic|aista-crm] database according to the specified arguments
+.type:crud-create
+
+// Verifying user is authorized to access endpoint.
+auth.ticket.verify:root, admin, account_manager
+.foreign-keys
+   .
+      column:email_template_id
+      table:activity_types
+      foreign_column:type
+      foreign_name:type
+      long:bool:true
+
+// Opening up database connection.
+data.connect:[generic|aista-crm]
+   database-type:sqlite
+
+   // Parametrising our create invocation.
+   add:x:./*/data.create/*/values
+      get-nodes:x:@.arguments/*
+
+   // Creating our record.
+   data.create
+      database-type:sqlite
+      table:emails
+      return-id:bool:true
+      values
+
+   // Returning result of above invoction to caller.
+   response.status.set:201
+   unwrap:x:+/*
+   return
+      id:x:@data.create
