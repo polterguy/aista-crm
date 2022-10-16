@@ -58,7 +58,10 @@ fork
                exists:x:@data.read/*
                .lambda
 
-                  // Incrementing offset
+                  /*
+                   * Incrementing offset such that in our next [while] iteration
+                   * we're retrieving next batch of contacts.
+                   */
                   set-value:x:@.offset
                      math.add:x:@.offset
                         get-count:x:@data.read/*
@@ -66,7 +69,7 @@ fork
                   // Iterating through each contact returned from above invocation to [data.read].
                   for-each:x:@data.read/*
 
-                     // Parametrising template fields in email for currerntly iterated contact.
+                     // Parametrising template fields in email for currently iterated contact.
                      .subject
                      .body
                      set-value:x:@.subject
@@ -77,19 +80,16 @@ fork
                         strings.replace:x:@.arguments/*/content
                            .:[name]
                            get-value:x:@.dp/#/*/name
-                     set-value:x:./*/add/**/foo
-                        get-value:x:@.dp/#/*/email
-                     set-name:x:./*/add/**/foo
-                        get-value:x:@.dp/#/*/email
 
                      // Parametrising invocation to [mail.smtp.send].
-                     unwrap:x:+/+/**/subject
-                     unwrap:x:+/**/content
+                     unwrap:x:+/*/**
                      add:x:@.lambda/*/mail.smtp.send
                         .
                            message
                               to
-                                 foo
+                                 .
+                                    name:x:@.dp/#/*/name
+                                    email:x:@.dp/#/*/email
                               subject:x:@.subject
                               entity:text/html
                                  content:x:@.body
