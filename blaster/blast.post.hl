@@ -63,8 +63,10 @@ fork
                      math.add:x:@.offset
                         get-count:x:@data.read/*
 
-                  // Sending emails.
+                  // Iterating through each contact returned from above invocation to [data.read].
                   for-each:x:@data.read/*
+
+                     // Parametrising template fields in email for currerntly iterated contact.
                      .subject
                      .body
                      set-value:x:@.subject
@@ -79,6 +81,8 @@ fork
                         get-value:x:@.dp/#/*/email
                      set-name:x:./*/add/**/foo
                         get-value:x:@.dp/#/*/email
+
+                     // Parametrising invocation to [mail.smtp.send].
                      unwrap:x:+/+/**/subject
                      unwrap:x:+/**/content
                      add:x:@.lambda/*/mail.smtp.send
@@ -89,6 +93,8 @@ fork
                               subject:x:@.subject
                               entity:text/html
                                  content:x:@.body
+
+                  // Sending emails to currently selected contacts.
                   mail.smtp.send
 
             else
@@ -109,7 +115,7 @@ fork
 
       // Logging error.
       log.error:x:@.arguments/*/message
-         source:blaster
+         source:aista-crm
 
 // Returning success to caller.
 return
