@@ -2,7 +2,6 @@
 /*
  * Returns all distinct sources from contacts.
  */
-
 .arguments
 .description:Returns all distinct sources from contacts
 

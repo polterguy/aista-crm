@@ -1,0 +1,16 @@
+
+/*
+ * Blast emails to specified recipients.
+ */
+.arguments
+   title:string
+   content:string
+   segmentation:string
+.description:Blast emails to specified recipients
+
+// Verifying user is authorized to access endpoint.
+auth.ticket.verify:root, admin, account_manager
+
+// Returning success to caller.
+return
+   result:success
