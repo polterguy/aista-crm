@@ -111,11 +111,28 @@ fork
                log.info:x:-
                   source:blaster
 
+               // Publishing socket message in case we've got listeners.
+               strings.concat
+                  get-value:x:@.offset
+                  .:" emails sent in blast"
+               unwrap:x:+/*/*/message
+               sockets.signal:aista-crm.system
+                  roles:root, admin, account_manager
+                  args
+                     message:x:@strings.concat
+
    .catch
 
       // Logging error.
       log.error:x:@.arguments/*/message
          source:aista-crm
+
+      // Publishing error message.
+      sockets.signal:aista-crm.system
+         roles:root, admin, account_manager
+         args
+            message:Email blast did not succeed
+            error:bool:true
 
 // Returning success to caller.
 return
