@@ -21,7 +21,6 @@ if
       throw:You need a [content] template field in your template for it to be valid
          public:bool:true
          status:400
-
 auth.ticket.get
 lambda2hyper:x:@.arguments/*
 log.info:Aista CRM - Email template created
@@ -30,7 +29,6 @@ log.info:Aista CRM - Email template created
 
 // Opening up database connection.
 data.connect:[generic|aista-crm]
-   database-type:sqlite
 
    // Parametrising our create invocation.
    add:x:./*/data.create/*/values
@@ -38,7 +36,6 @@ data.connect:[generic|aista-crm]
 
    // Creating our record.
    data.create
-      database-type:sqlite
       table:email_templates
       return-id:bool:true
       values

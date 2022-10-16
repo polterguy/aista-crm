@@ -1,7 +1,5 @@
 
-/*
- * KPI file for displaying employee productivity.
- */
+// KPI file for displaying employee productivity.
 .name:Employee productivity
 .description:Closed activities by user for current month
 .enabled:bool:false

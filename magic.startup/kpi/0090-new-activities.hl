@@ -1,7 +1,5 @@
 
-/*
- * KPI file for new activities created per day the last 14 days.
- */
+// KPI file for new activities created per day the last 14 days.
 .name:New activities
 .description:New activities per day the last 14 days
 .enabled:bool:false

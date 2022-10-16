@@ -21,7 +21,6 @@ log.info:Aista CRM - Activity type created
 
 // Opening up database connection.
 data.connect:[generic|aista-crm]
-   database-type:sqlite
 
    // Parametrising our create invocation.
    add:x:./*/data.create/*/values
@@ -29,7 +28,6 @@ data.connect:[generic|aista-crm]
 
    // Creating our record.
    data.create
-      database-type:sqlite
       table:activity_types
       return-id:bool:false
       values

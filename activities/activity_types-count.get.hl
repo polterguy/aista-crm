@@ -34,7 +34,6 @@ if
 
 // Opening up our database connection.
 data.connect:[generic|aista-crm]
-   database-type:sqlite
 
    // Parametrising our read invocation.
    add:x:./*/data.read
@@ -45,7 +44,6 @@ data.connect:[generic|aista-crm]
 
    // Reading data from database.
    data.read
-      database-type:sqlite
       table:activity_types
       columns
          count(*)

@@ -1,7 +1,5 @@
 
-/*
- * Blast emails to specified recipients.
- */
+// Blast emails to specified recipients.
 .arguments
    title:string
    content:string
@@ -39,7 +37,6 @@ fork
                   add:x:@while/*/data.read/*/where/*/and
                      .
                         source.eq:x:@.arguments/*/segmentation
-
             data.read
                table:contacts
                columns
@@ -96,7 +93,6 @@ fork
 
                   // Sending emails to currently selected contacts.
                   mail.smtp.send
-
             else
 
                // Stopping while loop.
@@ -120,7 +116,6 @@ fork
                   roles:root, admin, account_manager
                   args
                      message:x:@strings.concat
-
    .catch
 
       // Logging error.

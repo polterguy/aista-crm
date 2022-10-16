@@ -1,7 +1,5 @@
 
-/*
- * KPI file for displaying funnel information.
- */
+// KPI file for displaying funnel information.
 .name:Funnel
 .description:Funnel status
 .enabled:bool:true

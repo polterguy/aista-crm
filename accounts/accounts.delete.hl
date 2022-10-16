@@ -19,7 +19,6 @@ validators.mandatory:x:@.arguments/*/account_id
 
 // Opening up our database connection.
 data.connect:[generic|aista-crm]
-   database-type:sqlite
 
    // Parametrising our delete invocation.
    add:x:./*/data.delete/*/where/*/and
@@ -27,7 +26,6 @@ data.connect:[generic|aista-crm]
 
    // Deleting item from database.
    data.delete
-      database-type:sqlite
       table:accounts
       where
          and

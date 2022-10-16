@@ -31,7 +31,6 @@ log.info:Aista CRM - Account created
 
 // Opening up database connection.
 data.connect:[generic|aista-crm]
-   database-type:sqlite
 
    // Parametrising our create invocation.
    add:x:./*/data.create/*/values
@@ -39,7 +38,6 @@ data.connect:[generic|aista-crm]
 
    // Creating our record.
    data.create
-      database-type:sqlite
       table:accounts
       return-id:bool:true
       values

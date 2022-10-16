@@ -1,8 +1,5 @@
 
-
-/*
- * Executes all KPI Hyperlambda snippets and returns to caller.
- */
+// Executes all KPI Hyperlambda snippets and returns to caller.
 .description:Executes all KPI Hyperlambda snippets and returns to caller
 auth.ticket.verify:root, admin, account_manager
 

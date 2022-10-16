@@ -40,7 +40,6 @@ log.info:Aista CRM - Activity updated
 
 // Opening up our database connection.
 data.connect:[generic|aista-crm]
-   database-type:sqlite
 
    // Checking if activity was closed.
    if
@@ -70,7 +69,6 @@ data.connect:[generic|aista-crm]
 
    // Invoking our update slot.
    data.update
-      database-type:sqlite
       table:activities
       values
       where

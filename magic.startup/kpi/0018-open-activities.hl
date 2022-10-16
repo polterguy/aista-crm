@@ -1,7 +1,5 @@
 
-/*
- * KPI file for how many activities was closed each day.
- */
+// KPI file for how many activities was closed each day.
 .name:Open activities
 .description:The next 10 open activities
 .enabled:bool:true

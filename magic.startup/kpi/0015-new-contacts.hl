@@ -1,7 +1,5 @@
 
-/*
- * KPI file for contacts created the last 30 days.
- */
+// KPI file for contacts created the last 30 days.
 .name:New contacts
 .description:New contacts per day the last 30 days
 .enabled:bool:true

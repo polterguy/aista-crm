@@ -23,7 +23,6 @@ if
       throw:You need a [content] template field in your template for it to be valid
          public:bool:true
          status:400
-
 auth.ticket.get
 lambda2hyper:x:@.arguments/*
 log.info:Aista CRM - Email template updated
@@ -32,7 +31,6 @@ log.info:Aista CRM - Email template updated
 
 // Opening up our database connection.
 data.connect:[generic|aista-crm]
-   database-type:sqlite
 
    // Parametrising our invocation.
    add:x:./*/data.update/*/values
@@ -42,7 +40,6 @@ data.connect:[generic|aista-crm]
 
    // Invoking our update slot.
    data.update
-      database-type:sqlite
       table:email_templates
       values
       where

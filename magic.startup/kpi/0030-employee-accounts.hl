@@ -1,7 +1,5 @@
 
-/*
- * KPI file for displaying accounts per user.
- */
+// KPI file for displaying accounts per user.
 .name:Employee accounts
 .description:Accounts per user
 .enabled:bool:false

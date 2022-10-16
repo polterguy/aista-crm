@@ -39,7 +39,6 @@ log.info:Aista CRM - Activity created
 
 // Opening up database connection.
 data.connect:[generic|aista-crm]
-   database-type:sqlite
 
    // Checking if activity was closed.
    if
@@ -67,7 +66,6 @@ data.connect:[generic|aista-crm]
 
    // Creating our record.
    data.create
-      database-type:sqlite
       table:activities
       return-id:bool:true
       values

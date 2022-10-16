@@ -1,7 +1,5 @@
 
-/*
- * KPI file displaying the name of the 10 last created contacts.
- */
+// KPI file displaying the name of the 10 last created contacts.
 .name:Latest contacts
 .description:10 last created contacts
 .enabled:bool:true

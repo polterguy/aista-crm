@@ -1,7 +1,5 @@
 
-/*
- * Import contacts endpoint for importing CSV files containing contacts.
- */
+// Import contacts endpoint for importing CSV files containing contacts.
 .arguments
    file
       name:string
@@ -27,7 +25,7 @@ data.connect:aista-crm
 
    // Looping through each CSV record.
    for-each:x:@csv2lambda/*
-   
+
       // Sanity checking that we've at the very least got email in our record.
       if
          and
@@ -117,4 +115,3 @@ unwrap:x:+/*
 return
    imported:x:@.imported
    skipped:x:@.skipped
-

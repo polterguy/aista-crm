@@ -1,7 +1,5 @@
 
-/*
- * KPI file for how many activities was closed each day.
- */
+// KPI file for how many activities was closed each day.
 .name:Closed activities
 .description:Closed activities each day the last 30 days
 .enabled:bool:true

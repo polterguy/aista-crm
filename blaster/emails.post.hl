@@ -15,7 +15,6 @@ auth.ticket.verify:root, admin, account_manager
 
 // Opening up database connection.
 data.connect:[generic|aista-crm]
-   database-type:sqlite
 
    // Parametrising our create invocation.
    add:x:./*/data.create/*/values
@@ -23,7 +22,6 @@ data.connect:[generic|aista-crm]
 
    // Creating our record.
    data.create
-      database-type:sqlite
       table:emails
       return-id:bool:true
       values

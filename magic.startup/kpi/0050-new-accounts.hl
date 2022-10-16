@@ -1,7 +1,5 @@
 
-/*
- * KPI file for accounts that was created each day the last 14 days.
- */
+// KPI file for accounts that was created each day the last 14 days.
 .name:New accounts
 .description:New accounts per day the last 14 days
 .enabled:bool:false

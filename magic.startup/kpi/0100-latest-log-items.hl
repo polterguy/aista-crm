@@ -1,7 +1,5 @@
 
-/*
- * KPI file for displaying 10 last log items.
- */
+// KPI file for displaying 10 last log items.
 .name:Latest log items
 .description:10 last log items
 .enabled:bool:true
@@ -15,7 +13,7 @@
             created
          where
             and
-               content.like:"Aista CRM - %"
+               content.like:Aista CRM - %
          order:created
          direction:desc
          limit:10

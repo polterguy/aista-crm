@@ -8,4 +8,3 @@
 signal:magic.modules.ensure-database
    module:aista-crm
    database:aista-crm
-   database-type:sqlite

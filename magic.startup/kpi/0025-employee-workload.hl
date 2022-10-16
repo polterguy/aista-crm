@@ -1,7 +1,5 @@
 
-/*
- * KPI file for displaying workload for each user.
- */
+// KPI file for displaying workload for each user.
 .name:Employee workload
 .description:Open activities by user
 .enabled:bool:false
