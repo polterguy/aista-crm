@@ -13,6 +13,17 @@
 // Verifying user is authorized to access endpoint.
 validators.mandatory:x:@.arguments/*/email_template_id
 auth.ticket.verify:root, admin
+
+// Sanity checking invocation.
+if
+   not
+      strings.contains:x:@.arguments/*/content
+         .:[content]
+   .lambda
+      throw:You need a [content] template field in your template for it to be valid
+         public:bool:true
+         status:400
+
 auth.ticket.get
 lambda2hyper:x:@.arguments/*
 log.info:Aista CRM - Email template updated
