@@ -6,10 +6,110 @@
    title:string
    content:string
    segmentation:string
-.description:Blast emails to specified recipients
+.description:Blast specified email to specified recipients
 
 // Verifying user is authorized to access endpoint.
-auth.ticket.verify:root, admin, account_manager
+auth.ticket.verify:root, admin
+
+// Applying arguments to [fork] invocation.
+insert-before:x:./*/fork/0
+   get-nodes:x:@.arguments
+
+// Creating a new thread to execute blast on.
+fork
+
+   // Wrapping blast in try/catch block to be able to log exceptions
+   try
+
+      // Opening up database connection
+      data.connect:aista-crm
+
+         // Iterating for as long as we have contacts.
+         .continue:bool:true
+         .offset:int:0
+         while:x:@.continue
+
+            // Checking if we've got segmentation argument.
+            if
+               and
+                  exists:x:@.arguments/*/segmentation
+                  not-null:x:@.arguments/*/segmentation
+               .lambda
+                  unwrap:x:+/*/*
+                  add:x:@while/*/data.read/*/where/*/and
+                     .
+                        source.eq:x:@.arguments/*/segmentation
+
+            data.read
+               table:contacts
+               columns
+                  name
+                  email
+               where
+                  and
+                     email.neq
+                     subscriber.neq
+                     subscriber.neq:int:0
+               offset:x:@.offset
+               limit:10
+
+            // Checking if we've got more items in contacts table.
+            if
+               exists:x:@data.read/*
+               .lambda
+
+                  // Incrementing offset
+                  set-value:x:@.offset
+                     math.add:x:@.offset
+                        get-count:x:@data.read/*
+
+                  // Sending emails.
+                  for-each:x:@data.read/*
+                     .subject
+                     .body
+                     set-value:x:@.subject
+                        strings.replace:x:@.arguments/*/title
+                           .:[name]
+                           get-value:x:@.dp/#/*/name
+                     set-value:x:@.body
+                        strings.replace:x:@.arguments/*/content
+                           .:[name]
+                           get-value:x:@.dp/#/*/name
+                     set-value:x:./*/add/**/foo
+                        get-value:x:@.dp/#/*/email
+                     set-name:x:./*/add/**/foo
+                        get-value:x:@.dp/#/*/email
+                     unwrap:x:+/+/**/subject
+                     unwrap:x:+/**/content
+                     add:x:@.lambda/*/mail.smtp.send
+                        .
+                           message
+                              to
+                                 foo
+                              subject:x:@.subject
+                              entity:text/html
+                                 content:x:@.body
+                  mail.smtp.send
+
+            else
+
+               // Stopping while loop.
+               set-value:x:@.continue
+                  .:bool:false
+
+               // Logging information.
+               strings.concat
+                  .:"Aista CRM - "
+                  get-value:x:@.offset
+                  .:" emails blasted"
+               log.info:x:-
+                  source:blaster
+
+   .catch
+
+      // Logging error.
+      log.error:x:@.arguments/*/message
+         source:blaster
 
 // Returning success to caller.
 return
