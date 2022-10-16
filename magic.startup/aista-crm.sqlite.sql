@@ -82,10 +82,20 @@ create table activities(
 
 
 /*
- * Email templates, used in blaster module.
+ * Email blaster.
  */
 create table email_templates(
   email_template_id integer not null primary key autoincrement,
   name text not null,
   content text
 );
+
+create table emails(
+  email_id integer primary key autoincrement,
+  email_template_id integer references activity_types(type),
+  title text not null,
+  content text
+);
+
+
+
