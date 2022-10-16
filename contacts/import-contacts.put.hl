@@ -96,7 +96,11 @@ data.connect:aista-crm
 
 // Doing some logging.
 auth.ticket.get
-log.info:"Aista CRM - Contacts imported from CSV file"
+strings.concat
+   .:"Aista CRM - "
+   get-value:x:@.imported
+   .:" contacts imported"
+log.info:x:-
    imported:x:@.imported
    skipped:x:@.skipped
    username:x:@auth.ticket.get

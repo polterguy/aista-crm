@@ -9,7 +9,7 @@
 .type:crud-delete
 
 // Verifying user is authorized to access endpoint.
-auth.ticket.verify:root, admin
+auth.ticket.verify:root, admin, account_manager
 validators.mandatory:x:@.arguments/*/email_id
 
 // Opening up our database connection.
