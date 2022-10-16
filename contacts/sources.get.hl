@@ -10,5 +10,10 @@
 auth.ticket.verify:root, admin, account_manager
 
 data.connect:aista-crm
-   data.select:select distinct source, count(*) as count from contacts where email is not null and subscriber = true group by source
+   data.select:@"
+select distinct source, count(*) as count
+   from contacts
+      where email is not null
+         and subscriber = true
+      group by source"
    return:x:-/*
