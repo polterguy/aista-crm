@@ -12,4 +12,4 @@ select distinct source, count(*) as count
       where email is not null
          and subscriber = true
       group by source"
-   return:x:-/*
+   return-nodes:x:-/*
