@@ -105,6 +105,13 @@ log.info:x:-
    skipped:x:@.skipped
    username:x:@auth.ticket.get
 
+// Publishing socket message in case we've got listeners.
+unwrap:x:+/*/*/message
+sockets.signal:aista-crm.system
+   roles:root, admin, account_manager
+   args
+      message:x:@strings.concat
+
 // Returning success to caller.
 unwrap:x:+/*
 return
