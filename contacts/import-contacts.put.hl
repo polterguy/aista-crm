@@ -72,6 +72,10 @@ data.connect:robo-crm
                               type:date
 
                   // Parametrising [data.create] invocation and importing iterated record.
+                  set-value:x:@.dp/#/*/subscriber/=1
+                     .:int:1
+                  set-value:x:@.dp/#/*/subscriber/=0
+                     .:int:0
                   add:x:./*/data.create/*/values
                      get-nodes:x:@.dp/#/*/email
                      get-nodes:x:@.dp/#/*/name
