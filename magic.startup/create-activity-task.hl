@@ -5,32 +5,29 @@
  */
 
 // Ensuring we delete previously created task with the same name.
-tasks.list:aista-crm.tasks.ticker
+tasks.list:aista-crm.activities.ticker
 if
    mt
       get-count:x:@tasks.list/*
       .:int:0
    .lambda
-      tasks.delete:aista-crm.tasks.ticker
+      tasks.delete:aista-crm.activities.ticker
 
 // Creating new task.
-tasks.create:aista-crm.tasks.ticker
-   description:Task that informs users about their next upcoming activities
+tasks.create:aista-crm.activities.ticker
+   description:Task that informs users about their upcoming activities 20 minutes or less from now
    repeats:5.minutes
    .lambda
 
       // Finding date and time offset for which activities to select.
       .max
-      .min
       set-value:x:@.max
          math.add
             date.now
             time
-               minutes:9
-      set-value:x:@.min
-         date.now
+               minutes:20
 
-      // Finding tasks that are due in the next 8 minutes.
+      // Finding tasks that are due in the next 20 minutes and that we haven't notified user about.
       data.connect:aista-crm
          data.read
             table:activities
@@ -40,30 +37,42 @@ tasks.create:aista-crm.tasks.ticker
                username
                description
                contact_id
+               activity_id
             where
                and
-                  or
-                     closed.eq
-                     closed.eq:bool:false
-                     closed.eq:int:0
+                  closed.eq
                   due.lt:x:@.max
-                  due.mt:x:@.min
+                  due.neq
+                  notified.eq:int:0
             limit:-1
             order:due
 
          // Looping through each activity resulting from above invocation.
          for-each:x:@data.read/*
 
-            // Sending user an email about upcoming activity.
+            // Creating info message that we transmit to user.
             .data
                type:x:@.dp/#/*/type
                due:x:@.dp/#/*/due
                username:x:@.dp/#/*/username
                description:x:@.dp/#/*/description
+               activity_id:x:@.dp/#/*/activity_id
                contact_name
             unwrap:x:-/*
 
-            // Retrieving contact name is activity is associated with a contact.
+            /*
+             * Updating activity, setting notified to 1 to avoid duplicate notifications
+             * for the same activity.
+             */
+            data.update
+               table:activities
+               values
+                  notified:int:1
+               where
+                  and
+                     activity_id.eq:x:@.data/*/activity_id
+
+            // Retrieving contact name if activity is associated with a contact.
             if
                not-null:x:@.dp/#/*/contact_id
                .lambda
@@ -92,7 +101,7 @@ tasks.create:aista-crm.tasks.ticker
             set-value:x:@.message
                strings.concat
                   get-value:x:@.message
-                  .:" in less than 10 minutes from now"
+                  .:" in less than 20 minutes from now"
 
             // Signaling user over socket connection.
             unwrap:x:+/*/args/**
@@ -102,7 +111,7 @@ tasks.create:aista-crm.tasks.ticker
                   message:x:@.message
 
             // Verifying cloudlet has configured SMTP settings.
-            config.get:"magic.smtp.host"
+            config.get:"magic:smtp:host"
             if
                not-null:x:@config.get
                .lambda
@@ -126,6 +135,13 @@ tasks.create:aista-crm.tasks.ticker
                         not-null:x:@data.read/*/*/type/=email/./*/value
                         .lambda
 
+                           // Adding description of activity to email being sent.
+                           set-value:x:@.message
+                              strings.concat
+                                 get-value:x:@.message
+                                 .:"\r\n"
+                                 get-value:x:@.data/*/description
+
                            // Sending user email about activity.
                            unwrap:x:+/**
                            mail.smtp.send
@@ -137,3 +153,23 @@ tasks.create:aista-crm.tasks.ticker
                                  subject:Upcoming activity
                                  entity:text/plain
                                     content:x:@.message
+
+                           // Logging that we sent an email to contact for activity.
+                           strings.concat
+                              .:"Aista CRM - Email sent to "
+                              get-value:x:@.data/*/username
+                           log.info:x:-
+
+                     else
+
+                        // Logging that we could NOT send an email to contact for activity.
+                        log.info:Aista CRM - Email NOT sent to user
+                           username:x:@.data/*/username
+                           reason:No email address associated with user
+
+            else
+
+               // Logging that we could NOT send an email to contact for activity.
+               log.info:Aista CRM - Email NOT sent to user
+                  username:x:@.data/*/username
+                  reason:No SMTP settings configured for cloudlet

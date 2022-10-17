@@ -77,7 +77,8 @@ create table activities(
   due timestamp not null,
   username text not null,
   description text,
-  closed timestamp
+  closed timestamp,
+  notified integer not null default 0
 );
 
 
