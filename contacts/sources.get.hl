@@ -10,6 +10,6 @@ data.connect:aista-crm
 select distinct source, count(*) as count
    from contacts
       where email is not null
-         and subscriber = true
+         and subscriber = 1
       group by source"
    return-nodes:x:-/*
