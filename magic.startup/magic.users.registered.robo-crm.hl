@@ -6,15 +6,23 @@ slots.create:magic.users.registered.robo-crm
 
    // Sanity checking invocation.
    validators.mandatory:x:@.arguments/*/username
-   
-   // Adding name and email if specified.
-   add:x:./*/data.connect/*/data.create/*/values
-      get-nodes:x:@.arguments/*/name
-      get-nodes:x:@.arguments/*/email
-      get-nodes:x:@.arguments/*/country
 
    // Inserting user into contacts table.
    data.connect:robo-crm
+   
+      // Normalising subscribe.
+      set-value:x:@.arguments/*/subscribe/=yes
+         .:int:1
+      set-value:x:@.arguments/*/subscribe/=no
+         .:int:0
+      set-name:x:@.arguments/*/subscribe
+         .:subscriber
+   
+      // Adding name and email if specified.
+      add:x:./*/data.create/*/values
+         get-nodes:x:@.arguments/*/name
+         get-nodes:x:@.arguments/*/email
+         get-nodes:x:@.arguments/*/subscriber
       data.create
          table:contacts
          values

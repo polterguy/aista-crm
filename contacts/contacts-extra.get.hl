@@ -18,7 +18,7 @@ slots.vocabulary:aista.contacts.
 
 // Verifying we have any contact plugins.
 if
-   exists:x:@slots.vocabulary
+   exists:x:@slots.vocabulary/*
    .lambda
 
       // Retrieving meta and email for user.
