@@ -113,6 +113,7 @@ fork
                roles:root, admin, account_manager
                args
                   message:x:@strings.concat
+
 // Returning success to caller.
 return
    result:success
