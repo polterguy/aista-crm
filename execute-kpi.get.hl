@@ -4,7 +4,7 @@
 auth.ticket.verify:root, admin, account_manager
 
 // Iterating through all files in kpi foled and executing
-io.file.list:/modules/robo-crm/magic.startup/kpi/
+io.file.list:/etc/robo-crm/kpi/
 for-each:x:-/*
    if
       strings.ends-with:x:@.dp/#
