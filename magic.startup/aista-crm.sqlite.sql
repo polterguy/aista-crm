@@ -51,7 +51,7 @@ create table contacts(
   source text,
   meta text,
   description text,
-  subscriber boolean default false
+  subscriber integer default false
 );
 
 
