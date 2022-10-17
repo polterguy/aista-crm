@@ -5,7 +5,7 @@
  */
 .arguments
    email_template_id:long
-.description:Deletes one item from your email_templates table in your [generic|aista-crm] database matching the specified argument(s)
+.description:Deletes one item from your email_templates table in your [generic|robo-crm] database matching the specified argument(s)
 .type:crud-delete
 
 // Verifying user is authorized to access endpoint.
@@ -18,7 +18,7 @@ log.info:Aista CRM - Email template deleted
 validators.mandatory:x:@.arguments/*/email_template_id
 
 // Opening up our database connection.
-data.connect:[generic|aista-crm]
+data.connect:[generic|robo-crm]
 
    // Parametrising our delete invocation.
    add:x:./*/data.delete/*/where/*/and

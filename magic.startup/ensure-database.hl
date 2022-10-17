@@ -6,5 +6,5 @@
  * If the database doesn't exist, this script will create it by executing the SQL in the file
  */
 signal:magic.modules.ensure-database
-   module:aista-crm
-   database:aista-crm
+   module:robo-crm
+   database:robo-crm

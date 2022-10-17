@@ -17,7 +17,7 @@ insert-before:x:./*/fork/0
 fork
 
    // Opening up database connection
-   data.connect:aista-crm
+   data.connect:robo-crm
 
       // Iterating for as long as we have contacts.
       .continue:bool:true
@@ -109,7 +109,7 @@ fork
                get-value:x:@.offset
                .:" emails sent in blast"
             unwrap:x:+/*/*/message
-            sockets.signal:aista-crm.system
+            sockets.signal:robo-crm.system
                roles:root, admin, account_manager
                args
                   message:x:@strings.concat

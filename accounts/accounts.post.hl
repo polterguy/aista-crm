@@ -9,7 +9,7 @@
    account_manager:string
    website:string
    description:string
-.description:Creates an item in your accounts table in your [generic|aista-crm] database according to the specified arguments
+.description:Creates an item in your accounts table in your [generic|robo-crm] database according to the specified arguments
 .type:crud-create
 .handling
    account_manager:username_lookup
@@ -30,7 +30,7 @@ log.info:Aista CRM - Account created
       long:bool:false
 
 // Opening up database connection.
-data.connect:[generic|aista-crm]
+data.connect:[generic|robo-crm]
 
    // Parametrising our create invocation.
    add:x:./*/data.create/*/values

@@ -5,7 +5,7 @@
 .enabled:bool:true
 .type:table
 .lambda
-   data.connect:[generic|aista-crm]
+   data.connect:[generic|robo-crm]
       data.read
          table:contacts
          columns

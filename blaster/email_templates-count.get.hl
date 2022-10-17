@@ -10,7 +10,7 @@
    email_templates.name.eq:string
    email_templates.content.like:string
    email_templates.content.eq:string
-.description:Counts items from your email_templates table in your [generic|aista-crm] database according to the specified arguments
+.description:Counts items from your email_templates table in your [generic|robo-crm] database according to the specified arguments
 .type:crud-count
 
 // Verifying user is authorized to access endpoint.
@@ -34,7 +34,7 @@ if
          get-value:x:@.arguments/*/operator
 
 // Opening up our database connection.
-data.connect:[generic|aista-crm]
+data.connect:[generic|robo-crm]
 
    // Parametrising our read invocation.
    add:x:./*/data.read

@@ -21,7 +21,7 @@
    activities.done.eq:bool
    contact_id.name.eq:string
    contact_id.name.like:string
-.description:Returns items from your activities table in your [generic|aista-crm] database according to the specified arguments
+.description:Returns items from your activities table in your [generic|robo-crm] database according to the specified arguments
 .type:crud-read
 .handling
    activities.description:textarea
@@ -47,7 +47,7 @@ if
          get-value:x:@.arguments/*/operator
 
 // Opening up our database connection.
-data.connect:[generic|aista-crm]
+data.connect:[generic|robo-crm]
 
    // Checking if caller wants to filter according to done.
    if

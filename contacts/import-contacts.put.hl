@@ -21,7 +21,7 @@ csv2lambda:x:-
 .skipped:long:0
 
 // Opening up database connection.
-data.connect:aista-crm
+data.connect:robo-crm
 
    // Looping through each CSV record.
    for-each:x:@csv2lambda/*
@@ -106,7 +106,7 @@ log.info:x:-
 
 // Publishing socket message in case we've got listeners.
 unwrap:x:+/*/*/message
-sockets.signal:aista-crm.system
+sockets.signal:robo-crm.system
    roles:root, admin, account_manager
    args
       message:x:@strings.concat

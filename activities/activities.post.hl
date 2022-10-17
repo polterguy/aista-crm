@@ -11,7 +11,7 @@
    contact_id:long
    due:date
    done:bool
-.description:Creates an item in your activities table in your [generic|aista-crm] database according to the specified arguments
+.description:Creates an item in your activities table in your [generic|robo-crm] database according to the specified arguments
 .type:crud-create
 .handling
    description:textarea
@@ -38,7 +38,7 @@ log.info:Aista CRM - Activity created
       long:bool:false
 
 // Opening up database connection.
-data.connect:[generic|aista-crm]
+data.connect:[generic|robo-crm]
 
    // Checking if activity was closed.
    if
@@ -72,7 +72,7 @@ data.connect:[generic|aista-crm]
 
    // Publishing socket message to user who was assigned the activity.
    unwrap:x:+/*/*/message
-   sockets.signal:aista-crm.system
+   sockets.signal:robo-crm.system
       user:x:@.arguments/*/username
       args
          message:You were assigned a new activity

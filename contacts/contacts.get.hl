@@ -32,7 +32,7 @@
    account_id.name.eq:string
    account_id.name.like:string
    account.description.like
-.description:Returns items from your contacts table in your [generic|aista-crm] database according to the specified arguments
+.description:Returns items from your contacts table in your [generic|robo-crm] database according to the specified arguments
 .type:crud-read
 .handling
    contacts.phone:phone
@@ -60,7 +60,7 @@ if
          get-value:x:@.arguments/*/operator
 
 // Opening up our database connection.
-data.connect:[generic|aista-crm]
+data.connect:[generic|robo-crm]
 
    // Parametrising our read invocation.
    add:x:./*/data.read

@@ -15,7 +15,7 @@
    description:string
    subscriber:bool
    source:string
-.description:Creates an item in your contacts table in your [generic|aista-crm] database according to the specified arguments
+.description:Creates an item in your contacts table in your [generic|robo-crm] database according to the specified arguments
 .type:crud-create
 .handling
    phone:phone
@@ -43,7 +43,7 @@ validators.email:x:@.arguments/*/email
 validators.url:x:@.arguments/*/linkedIn
 
 // Opening up database connection.
-data.connect:[generic|aista-crm]
+data.connect:[generic|robo-crm]
 
    // Parametrising our create invocation.
    add:x:./*/data.create/*/values

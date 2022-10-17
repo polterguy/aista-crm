@@ -5,7 +5,7 @@
 
 // Verifying user is authorized to access endpoint.
 auth.ticket.verify:root, admin, account_manager
-data.connect:aista-crm
+data.connect:robo-crm
    data.select:@"
 select distinct source, count(*) as count
    from contacts

@@ -6,7 +6,7 @@
 .arguments
    status:string
    description:string
-.description:Creates an item in your status table in your [generic|aista-crm] database according to the specified arguments
+.description:Creates an item in your status table in your [generic|robo-crm] database according to the specified arguments
 .type:crud-create
 .handling
    description:textarea
@@ -20,7 +20,7 @@ log.info:Aista CRM - Status created
    arguments:x:@lambda2hyper
 
 // Opening up database connection.
-data.connect:[generic|aista-crm]
+data.connect:[generic|robo-crm]
 
    // Parametrising our create invocation.
    add:x:./*/data.create/*/values

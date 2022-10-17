@@ -1,6 +1,6 @@
 
 /*
- * SQLite script to create "aista-crm" database.
+ * SQLite script to create "robo-crm" database.
  */
 
 

@@ -7,7 +7,7 @@
    email_template_id:long
    name:string
    content:string
-.description:Updates an existing item in your email_templates table in your [generic|aista-crm] database according to the specified arguments
+.description:Updates an existing item in your email_templates table in your [generic|robo-crm] database according to the specified arguments
 .type:crud-update
 
 // Verifying user is authorized to access endpoint.
@@ -30,7 +30,7 @@ log.info:Aista CRM - Email template updated
    arguments:x:@lambda2hyper
 
 // Opening up our database connection.
-data.connect:[generic|aista-crm]
+data.connect:[generic|robo-crm]
 
    // Parametrising our invocation.
    add:x:./*/data.update/*/values

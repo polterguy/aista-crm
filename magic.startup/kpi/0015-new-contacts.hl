@@ -11,7 +11,7 @@
          date.now
          time
             days:29
-   data.connect:[generic|aista-crm]
+   data.connect:[generic|robo-crm]
       while
          lt:x:@.now
             date.now

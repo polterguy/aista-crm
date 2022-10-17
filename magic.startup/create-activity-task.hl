@@ -5,16 +5,16 @@
  */
 
 // Ensuring we delete previously created task with the same name.
-tasks.list:aista-crm.activities.ticker
+tasks.list:robo-crm.activities.ticker
 if
    mt
       get-count:x:@tasks.list/*
       .:int:0
    .lambda
-      tasks.delete:aista-crm.activities.ticker
+      tasks.delete:robo-crm.activities.ticker
 
 // Creating new task.
-tasks.create:aista-crm.activities.ticker
+tasks.create:robo-crm.activities.ticker
    description:Task that informs users about their upcoming activities 20 minutes or less from now
    repeats:5.minutes
    .lambda
@@ -28,7 +28,7 @@ tasks.create:aista-crm.activities.ticker
                minutes:20
 
       // Finding tasks that are due in the next 20 minutes and that we haven't notified user about.
-      data.connect:aista-crm
+      data.connect:robo-crm
          data.read
             table:activities
             columns
@@ -105,7 +105,7 @@ tasks.create:aista-crm.activities.ticker
 
             // Signaling user over socket connection.
             unwrap:x:+/*/args/**
-            sockets.signal:aista-crm.system
+            sockets.signal:robo-crm.system
                users:x:@.dp/#/*/username
                args
                   message:x:@.message

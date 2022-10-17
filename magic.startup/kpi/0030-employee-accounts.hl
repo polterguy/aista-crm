@@ -5,6 +5,6 @@
 .enabled:bool:false
 .type:pie
 .lambda
-   data.connect:[generic|aista-crm]
+   data.connect:[generic|robo-crm]
       data.select:select account_manager as name, count(*) as value from accounts group by account_manager
       return-nodes:x:-/*

@@ -16,7 +16,7 @@
    description:string
    subscriber:bool
    source:string
-.description:Updates an existing item in your contacts table in your [generic|aista-crm] database according to the specified arguments
+.description:Updates an existing item in your contacts table in your [generic|robo-crm] database according to the specified arguments
 .type:crud-update
 .handling
    phone:phone
@@ -41,7 +41,7 @@ log.info:Aista CRM - Contact updated
       long:bool:true
 
 // Opening up our database connection.
-data.connect:[generic|aista-crm]
+data.connect:[generic|robo-crm]
 
    // Parametrising our invocation.
    add:x:./*/data.update/*/values
