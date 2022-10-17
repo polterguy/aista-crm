@@ -8,36 +8,12 @@
    offset:long
    order:string
    direction:string
-   operator:string
-   username.eq:string
    username.like:string
-   locked.eq:bool
-   created.mt:date
-   created.lt:date
-   created.mteq:date
-   created.lteq:date
 .description:Returns items from your users table in your [generic|magic] database according to the specified arguments
 .type:crud-read
 
 // Verifying user is authorized to access endpoint.
 auth.ticket.verify:root, admin, account_manager
-
-// Sanity checking invocation.
-validators.enum:x:@.arguments/*/operator
-   .:or
-   .:and
-
-/*
- * Checking if user supplied an [operator] argument, and if so
- * changing the boolean operator for comparison operations.
- */
-if
-   exists:x:@.arguments/*/operator
-   .lambda
-
-      // User provided a boolean comparison [operator] argument.
-      set-name:x:../*/data.connect/*/data.read/*/where/0
-         get-value:x:@.arguments/*/operator
 
 // Opening up our database connection.
 data.connect:[generic|magic]
@@ -58,13 +34,15 @@ data.connect:[generic|magic]
 
    // Reading data from database.
    data.read
-      table:users
+      table:users_roles
       columns
-         users.username
-         users.locked
-         users.created
+         users_roles.user
+            as:username
       where
-         and
+         or
+            role.eq:root
+            role.eq:admin
+            role.eq:account_manager
 
    // Returning result of above read invocation to caller.
    return-nodes:x:@data.read/*
