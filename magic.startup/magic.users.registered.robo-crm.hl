@@ -28,3 +28,9 @@ slots.create:magic.users.registered.robo-crm
          values
             meta:x:@.arguments/*/username
 
+      // Logging and informing users.
+      log.info:Robo CRM - Contact registered in HUB
+      sockets.signal:robo-crm.system
+         roles:root, admin, account_manager
+         args
+            message:Contact registered in HUB
