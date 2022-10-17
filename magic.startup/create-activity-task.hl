@@ -156,20 +156,20 @@ tasks.create:robo-crm.activities.ticker
 
                            // Logging that we sent an email to contact for activity.
                            strings.concat
-                              .:"Aista CRM - Email sent to "
+                              .:"Robo CRM - Email sent to "
                               get-value:x:@.data/*/username
                            log.info:x:-
 
                      else
 
                         // Logging that we could NOT send an email to contact for activity.
-                        log.info:Aista CRM - Email NOT sent to user
+                        log.info:Robo CRM - Email NOT sent to user
                            username:x:@.data/*/username
                            reason:No email address associated with user
 
             else
 
                // Logging that we could NOT send an email to contact for activity.
-               log.info:Aista CRM - Email NOT sent to user
+               log.info:Robo CRM - Email NOT sent to user
                   username:x:@.data/*/username
                   reason:No SMTP settings configured for cloudlet

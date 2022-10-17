@@ -1,4 +1,4 @@
-# Aista CRM
+# Robo CRM
 
 A micro SQLite CRM database useful as a starter kit for your own custom CRM.
 Notice, it _only_ supports SQLite currently. The system is tiny in size, and

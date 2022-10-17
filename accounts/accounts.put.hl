@@ -20,7 +20,7 @@ validators.mandatory:x:@.arguments/*/account_id
 auth.ticket.verify:root, admin, account_manager
 auth.ticket.get
 lambda2hyper:x:@.arguments/*
-log.info:Aista CRM - Account updated
+log.info:Robo CRM - Account updated
    username:x:@auth.ticket.get
    arguments:x:@lambda2hyper
 .foreign-keys

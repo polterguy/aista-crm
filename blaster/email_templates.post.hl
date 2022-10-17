@@ -23,7 +23,7 @@ if
          status:400
 auth.ticket.get
 lambda2hyper:x:@.arguments/*
-log.info:Aista CRM - Email template created
+log.info:Robo CRM - Email template created
    username:x:@auth.ticket.get
    arguments:x:@lambda2hyper
 

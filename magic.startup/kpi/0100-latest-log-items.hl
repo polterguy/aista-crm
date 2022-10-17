@@ -13,12 +13,12 @@
             created
          where
             and
-               content.like:Aista CRM - %
+               content.like:Robo CRM - %
          order:created
          direction:desc
          limit:10
       for-each:x:@data.read/*
          set-value:x:@.dp/#/*/content
             strings.substring:x:@.dp/#/*/content
-               .:int:12
+               .:int:11
       return-nodes:x:@data.read/*

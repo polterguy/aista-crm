@@ -5,4 +5,4 @@
  */
 signal:magic.auth.ensure-role
    role:account_manager
-   description:Account manager for Aista CRM system
+   description:Account manager for Robo CRM system

@@ -98,7 +98,7 @@ fork
 
             // Logging information.
             strings.concat
-               .:"Aista CRM - "
+               .:"Robo CRM - "
                get-value:x:@.offset
                .:" emails blasted"
             log.info:x:-

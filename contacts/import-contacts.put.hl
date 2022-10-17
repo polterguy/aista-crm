@@ -96,7 +96,7 @@ data.connect:robo-crm
 // Doing some logging.
 auth.ticket.get
 strings.concat
-   .:"Aista CRM - "
+   .:"Robo CRM - "
    get-value:x:@.imported
    .:" contacts imported"
 log.info:x:-
