@@ -1,0 +1,74 @@
+
+/*
+ * Returns extra information associated with contacts, such as information
+ * specified by plugins, etc.
+ */
+.arguments
+   contact_id:long
+.description:Returns extra information associated with the specified contact, such as information published by plugins, etc.
+
+// Verifying user is authorized to access endpoint.
+auth.ticket.verify:root, admin, account_manager
+
+// Sanity checking invocation.
+validators.mandatory:x:@.arguments/*/contact_id
+
+// Retrieving all plugin slots.
+slots.vocabulary:aista.contacts.
+
+// Verifying we have any contact plugins.
+if
+   exists:x:@slots.vocabulary
+   .lambda
+
+      // Retrieving meta and email for user.
+      .meta
+      .email
+      data.connect:[generic|robo-crm]
+         data.read
+            table:contacts
+            columns
+               meta
+               email
+            where
+               and
+                  contact_id.eq:x:@.arguments/*/contact_id
+
+         // Making sure contact exists.
+         if
+            not-exists:x:@data.read/*
+            .lambda
+               throw:No such user
+                  public:bool:true
+                  status:int:404
+
+         set-value:x:@.meta
+            get-value:x:@data.read/*/*/meta
+         set-value:x:@.email
+            get-value:x:@data.read/*/*/email
+
+      // Iterating through each plugin slot and invoking with username.
+      for-each:x:@slots.vocabulary/*
+
+         // Creating our lambda object to invoke for plugin slot.
+         unwrap:x:+/*/signal/**
+         .lambda
+            signal:x:@.dp/#
+               meta:x:@.meta
+               email:x:@.email
+            return-nodes:x:@signal/*
+
+         // Invoking lambda object
+         invoke:x:@.lambda
+
+         // Returning result of invocation to caller.
+         unwrap:x:+/*/*/*
+         add:x:../*/return
+            .
+               .
+                  name:x:@.dp/#
+         add:x:../*/return/0/-
+            get-nodes:x:@invoke/*
+
+// Returning result to caller.
+return

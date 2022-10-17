@@ -98,6 +98,7 @@ data.connect:[generic|robo-crm]
          contacts.source
          contacts.description
          contacts.subscriber
+         contacts.meta
          account_id.name
             as:account_id.name
       where
