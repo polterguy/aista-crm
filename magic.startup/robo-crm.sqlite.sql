@@ -42,7 +42,7 @@ create table contacts(
   contact_id integer not null primary key autoincrement,
   account_id integer references accounts(account_id),
   created timestamp not null default current_timestamp,
-  name text not null,
+  name text,
   phone text,
   email text,
   country text,
@@ -51,7 +51,7 @@ create table contacts(
   source text,
   meta text,
   description text,
-  subscriber integer default false
+  subscriber integer default 0
 );
 
 

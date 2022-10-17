@@ -1,0 +1,22 @@
+
+/*
+ * Invoked when a new user is registering in the system.
+ */
+slots.create:magic.users.registered.robo-crm
+
+   // Sanity checking invocation.
+   validators.mandatory:x:@.arguments/*/username
+   
+   // Adding name and email if specified.
+   add:x:./*/data.connect/*/data.create/*/values
+      get-nodes:x:@.arguments/*/name
+      get-nodes:x:@.arguments/*/email
+      get-nodes:x:@.arguments/*/country
+
+   // Inserting user into contacts table.
+   data.connect:robo-crm
+      data.create
+         table:contacts
+         values
+            meta:x:@.arguments/*/username
+
