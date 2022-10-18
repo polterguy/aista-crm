@@ -37,4 +37,4 @@ slots.create:magic.users.update-extra.unsubscribe
       sockets.signal:robo-crm.system
          roles:root, admin, account_manager
          args
-            message:Contact registered in HUB
+            message:Contact updated data
