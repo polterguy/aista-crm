@@ -1,0 +1,40 @@
+
+/*
+ * Invoked when a user unsubscribes to newsletter in system.
+ */
+slots.create:magic.users.update-extra.unsubscribe
+
+   // Sanity checking invocation.
+   validators.mandatory:x:@.arguments/*/username
+
+   // Inserting user into contacts table.
+   data.connect:robo-crm
+
+      // Normalising subscribe.
+      set-value:x:@.arguments/*/subscribe/=yes
+         .:int:1
+      set-value:x:@.arguments/*/subscribe/=no
+         .:int:0
+      set-name:x:@.arguments/*/subscribe
+         .:subscriber
+      add:x:./*/data.update/*/values
+         get-nodes:x:@.arguments/*/subscribe
+         get-nodes:x:@.arguments/*/city
+         get-nodes:x:@.arguments/*/country
+         get-nodes:x:@.arguments/*/name
+         get-nodes:x:@.arguments/*/phone
+
+      // Updating user.
+      data.update
+         table:contacts
+         values
+         where
+            and
+               meta:x:@.arguments/*/username
+
+      // Logging and informing users.
+      log.info:Robo CRM - Contact registered in HUB
+      sockets.signal:robo-crm.system
+         roles:root, admin, account_manager
+         args
+            message:Contact registered in HUB
