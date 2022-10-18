@@ -10,6 +10,6 @@ data.connect:robo-crm
 select distinct source, count(*) as count
    from contacts
       where email is not null
-         and subscriber = 1
+         and subscriber = 1 and confirmed = 1
       group by source"
    return-nodes:x:-/*

@@ -44,6 +44,8 @@ fork
                   email.neq
                   subscriber.neq
                   subscriber.neq:int:0
+                  confirmed.neq
+                  confirmed.neq:int:0
             offset:x:@.offset
             limit:10
 
