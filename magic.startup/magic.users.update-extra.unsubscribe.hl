@@ -33,7 +33,7 @@ slots.create:magic.users.update-extra.unsubscribe
                meta:x:@.arguments/*/username
 
       // Logging and informing users.
-      log.info:Robo CRM - Contact registered in HUB
+      log.info:Robo CRM - Contact updated data
       sockets.signal:robo-crm.system
          roles:root, admin, account_manager
          args
