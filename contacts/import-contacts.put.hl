@@ -80,6 +80,7 @@ data.connect:robo-crm
                      get-nodes:x:@.dp/#/*/email
                      get-nodes:x:@.dp/#/*/name
                      get-nodes:x:@.dp/#/*/subscriber
+                     get-nodes:x:@.dp/#/*/confirmed
                      get-nodes:x:@.dp/#/*/phone
                      get-nodes:x:@.dp/#/*/country
                      get-nodes:x:@.dp/#/*/city
