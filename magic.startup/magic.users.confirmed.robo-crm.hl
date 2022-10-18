@@ -1,0 +1,27 @@
+
+/*
+ * Invoked when a new user is registering in the system.
+ */
+slots.create:magic.users.confirmed.robo-crm
+
+   // Sanity checking invocation.
+   validators.mandatory:x:@.arguments/*/username
+
+   // Inserting user into contacts table.
+   data.connect:robo-crm
+
+      // Updating contact
+      data.update
+         table:contacts
+         values
+            confirmed:int:1
+         where
+            and
+               meta.eq:x:@.arguments/*/username
+
+      // Logging and informing users.
+      log.info:Robo CRM - Contact confirmed email
+      sockets.signal:robo-crm.system
+         roles:root, admin, account_manager
+         args
+            message:Contact confirmed email

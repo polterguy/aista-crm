@@ -15,6 +15,7 @@
    meta:string
    description:string
    subscriber:bool
+   confirmed:bool
    source:string
 .description:Updates an existing item in your contacts table in your [generic|robo-crm] database according to the specified arguments
 .type:crud-update

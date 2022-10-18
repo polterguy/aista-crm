@@ -25,6 +25,7 @@
    contacts.source.like:string
    contacts.source.eq:string
    contacts.subscriber.eq:bool
+   contacts.confirmed.eq:bool
    account_id.name.eq:string
    account_id.name.like:string
    account.description.like:string

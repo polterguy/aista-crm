@@ -1,0 +1,1 @@
+alter table contacts add column confirmed int not null default 0

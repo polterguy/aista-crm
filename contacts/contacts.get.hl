@@ -29,6 +29,7 @@
    contacts.meta.like:string
    contacts.meta.eq:string
    contacts.subscriber.eq:bool
+   contacts.confirmed.eq:bool
    account_id.name.eq:string
    account_id.name.like:string
    account.description.like
@@ -98,6 +99,7 @@ data.connect:[generic|robo-crm]
          contacts.source
          contacts.description
          contacts.subscriber
+         contacts.confirmed
          contacts.meta
          account_id.name
             as:account_id.name
@@ -106,6 +108,10 @@ data.connect:[generic|robo-crm]
    set-value:x:@data.read/*/*/subscriber/=0
       .:bool:false
    set-value:x:@data.read/*/*/subscriber/=1
+      .:bool:true
+   set-value:x:@data.read/*/*/confirmed/=0
+      .:bool:false
+   set-value:x:@data.read/*/*/confirmed/=1
       .:bool:true
 
    // Returning result of above read invocation to caller.
