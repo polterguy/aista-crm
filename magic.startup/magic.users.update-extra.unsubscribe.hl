@@ -18,7 +18,7 @@ slots.create:magic.users.update-extra.unsubscribe
       set-name:x:@.arguments/*/subscribe
          .:subscriber
       add:x:./*/data.update/*/values
-         get-nodes:x:@.arguments/*/subscribe
+         get-nodes:x:@.arguments/*/subscriber
          get-nodes:x:@.arguments/*/city
          get-nodes:x:@.arguments/*/country
          get-nodes:x:@.arguments/*/name
