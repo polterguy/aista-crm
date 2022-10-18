@@ -2,7 +2,7 @@
 /*
  * Invoked when a user unsubscribes to newsletter in system.
  */
-slots.create:magic.users.update-extra.unsubscribe
+slots.create:magic.users.update-extra.robo-crm
 
    // Sanity checking invocation.
    validators.mandatory:x:@.arguments/*/username
