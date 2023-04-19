@@ -27,4 +27,4 @@ jobs:
             "Content-Type": "multipart/form-data",
             "Authorization": "Bearer ${{ secrets.PROD_TOKEN }}"
             }'
-          files: '{"file": "/home/runner/work/notifications/notifications/archive.zip"}'
+          files: '{"file": "/home/runner/work/robo-crm/robo-crm/archive.zip"}'
