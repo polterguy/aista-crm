@@ -4,7 +4,6 @@
  * This file was automatically generated using Magic's CRUDifier.
  */
 .arguments
-   operator:string
    email_templates.email_template_id.eq:long
    email_templates.name.like:string
    email_templates.name.eq:string
@@ -16,26 +15,9 @@
 // Verifying user is authorized to access endpoint.
 auth.ticket.verify:root, admin, account_manager
 
-// Sanity checking invocation.
-validators.enum:x:@.arguments/*/operator
-   .:or
-   .:and
-
-/*
- * Checking if user supplied an [operator] argument, and if so
- * changing the boolean operator for comparison operations.
- */
-if
-   exists:x:@.arguments/*/operator
-   .lambda
-
-      // User provided a boolean comparison [operator] argument.
-      set-name:x:../*/data.connect/*/data.read/*/where/0
-         get-value:x:@.arguments/*/operator
-
 // Opening up our database connection.
 data.connect:[generic|robo-crm]
-
+ 
    // Parametrising our read invocation.
    add:x:./*/data.read
       get-nodes:x:@.arguments/*/operator

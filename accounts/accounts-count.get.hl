@@ -4,16 +4,12 @@
  * This file was automatically generated using Magic's CRUDifier.
  */
 .arguments
-   operator:string
    accounts.account_id.eq:long
-   accounts.status.like:string
    accounts.status.eq:string
-   accounts.created.eq:date
    accounts.name.like:string
    accounts.name.eq:string
    accounts.account_manager.like:string
    accounts.account_manager.eq:string
-   accounts.description.like:string
    accounts.website.like:string
    accounts.website.eq:string
 .description:Counts items from your accounts table in your [generic|robo-crm] database according to the specified arguments
@@ -21,23 +17,6 @@
 
 // Verifying user is authorized to access endpoint.
 auth.ticket.verify:root, admin, account_manager
-
-// Sanity checking invocation.
-validators.enum:x:@.arguments/*/operator
-   .:or
-   .:and
-
-/*
- * Checking if user supplied an [operator] argument, and if so
- * changing the boolean operator for comparison operations.
- */
-if
-   exists:x:@.arguments/*/operator
-   .lambda
-
-      // User provided a boolean comparison [operator] argument.
-      set-name:x:../*/data.connect/*/data.read/*/where/0
-         get-value:x:@.arguments/*/operator
 
 // Opening up our database connection.
 data.connect:[generic|robo-crm]

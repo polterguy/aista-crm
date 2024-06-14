@@ -8,7 +8,6 @@
    offset:long
    order:string
    direction:string
-   operator:string
    contacts.contact_id.eq:long
    contacts.account_id.eq:long
    contacts.created.eq:date
@@ -22,12 +21,6 @@
    contacts.country.eq:string
    contacts.city.like:string
    contacts.city.eq:string
-   contacts.linkedIn.like:string
-   contacts.linkedIn.eq:string
-   contacts.source.like:string
-   contacts.source.eq:string
-   contacts.meta.like:string
-   contacts.meta.eq:string
    contacts.subscriber.eq:bool
    contacts.confirmed.eq:bool
    account_id.name.eq:string
@@ -42,23 +35,6 @@
 
 // Verifying user is authorized to access endpoint.
 auth.ticket.verify:root, admin, account_manager
-
-// Sanity checking invocation.
-validators.enum:x:@.arguments/*/operator
-   .:or
-   .:and
-
-/*
- * Checking if user supplied an [operator] argument, and if so
- * changing the boolean operator for comparison operations.
- */
-if
-   exists:x:@.arguments/*/operator
-   .lambda
-
-      // User provided a boolean comparison [operator] argument.
-      set-name:x:../*/data.connect/*/data.read/*/where/0
-         get-value:x:@.arguments/*/operator
 
 // Opening up our database connection.
 data.connect:[generic|robo-crm]
