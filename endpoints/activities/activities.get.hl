@@ -101,7 +101,6 @@ data.connect:[generic|robo-crm]
          activities.due
          activities.description
          activities.closed
-         activities.notified
          contact_id.name
             as:contact_id.name
       where

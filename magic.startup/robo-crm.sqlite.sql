@@ -28,9 +28,9 @@ create table accounts(
   status text not null references status(status),
   created timestamp not null default current_timestamp,
   name text not null,
-  website text,
-  description text,
-  account_manager text /* Username of employee responsible for following up on account */
+  website text null,
+  description text null,
+  account_manager text null
 );
 
 insert into accounts (status, name, website, description, account_manager) values ('Lead', 'Microsoft', 'http://microsoft.com', 'Leading provider of tech solutions', 'John');
@@ -111,8 +111,7 @@ create table activities(
   due timestamp not null default current_timestamp,
   username text not null,
   description text,
-  closed timestamp,
-  notified integer not null default 0
+  closed timestamp not null default current_timestamp
 );
 
 insert into activities (type, contact_id, username, description) values 

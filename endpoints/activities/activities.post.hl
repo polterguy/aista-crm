@@ -8,17 +8,14 @@
    // contact_id column value
    contact_id:long
 
-   // due column value
+   // due column value. Will use default_timestamp if not specified, being today's date.
    due:date
 
    // description column value
    description:string
 
-   // closed column value
+   // closed column value. Will use default_timestamp if not specified, being today's date.
    closed:date
-
-   // notified column value
-   notified:long
 
 // Meta data description for endpoint
 .description:Create inserting one record into your activities table in your robo-crm database taking type, contact_id, due, username, description, closed, notified with authentication and authorisation for root,admin roles
