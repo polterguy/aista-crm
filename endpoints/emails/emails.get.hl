@@ -1,0 +1,97 @@
+
+// Read or list records from your emails table in your robo-crm database with paging, sorting, filtering selecting returning email_id, created, email_template_id, title, content filtering on email_id, created, email_template_id, title, content with authentication and authorisation for root,admin roles
+.arguments
+
+   // Number of records to return
+   limit:long
+
+   // Offset into the dataset of where to start retrieving records
+   offset:long
+
+   // Fully qualified name of column to order by, implying TABLE_NAME.COLUMN_NAME.
+   order:string
+
+   // What direction to order, can be 'asc' or 'desc' implying ascending and descending
+   direction:string
+
+   // emails table email_id column equality exact match filtering
+   emails.email_id.eq:long
+
+   // emails table created column equality exact match filtering
+   emails.created.eq:date
+
+   // emails table email_template_id column equality exact match filtering
+   emails.email_template_id.eq:long
+
+   // emails table title column wildcard filtering with SQL like '%' comparison
+   emails.title.like:string
+
+   // emails table title column equality exact match filtering
+   emails.title.eq:string
+
+   // emails table content column wildcard filtering with SQL like '%' comparison
+   emails.content.like:string
+
+   // emails table content column equality exact match filtering
+   emails.content.eq:string
+
+   // email_templates table name column equality exact match filtering
+   email_template_id.name.eq:string
+
+   // email_templates table name column wildcard filtering with SQL like '%' comparison
+   email_template_id.name.like:string
+
+// Meta data description for endpoint
+.description:Read or list records from your emails table in your robo-crm database with paging, sorting, filtering selecting returning email_id, created, email_template_id, title, content filtering on email_id, created, email_template_id, title, content with authentication and authorisation for root,admin roles
+
+// Type of endpoint
+.type:crud-read
+
+// Verifying user is authorized to access endpoint.
+auth.ticket.verify:root,admin
+
+// Opening up our database connection.
+data.connect:[generic|robo-crm]
+   database-type:sqlite
+
+   // Parametrising our read invocation with ordering arguments if specified.
+   add:x:./*/data.read
+      get-nodes:x:@.arguments/*/order
+      get-nodes:x:@.arguments/*/direction
+   remove-nodes:x:@.arguments/*/order
+   remove-nodes:x:@.arguments/*/direction
+
+   // Parametrising our read invocation with paging arguments if specified.
+   add:x:./*/data.read
+      get-nodes:x:@.arguments/*/limit
+      get-nodes:x:@.arguments/*/offset
+   remove-nodes:x:@.arguments/*/limit
+   remove-nodes:x:@.arguments/*/offset
+
+   // Parametrising our read invocation with filtering arguments.
+   add:x:./*/data.read/*/where/*
+      get-nodes:x:@.arguments/*
+
+   // Reading data from database.
+   data.read
+      database-type:sqlite
+      table:emails
+         join:email_templates
+            as:email_template_id
+            type:left
+            on
+               and
+                  emails.email_template_id:email_template_id.email_template_id
+      columns
+         emails.email_id
+         emails.created
+         emails.email_template_id
+         emails.title
+         emails.content
+         email_template_id.name
+            as:email_template_id.name
+      where
+         and
+
+   // Returning result of above read invocation to caller.
+   return-nodes:x:@data.read/*

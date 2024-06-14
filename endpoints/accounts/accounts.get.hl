@@ -1,0 +1,100 @@
+
+// Read or list records from your accounts table in your robo-crm database with paging, sorting, filtering selecting returning account_id, status, created, name, website, description, account_manager filtering on account_id, status, created, name, website, description, account_manager with authentication and authorisation for root,admin roles
+.arguments
+
+   // Number of records to return
+   limit:long
+
+   // Offset into the dataset of where to start retrieving records
+   offset:long
+
+   // Fully qualified name of column to order by, implying TABLE_NAME.COLUMN_NAME.
+   order:string
+
+   // What direction to order, can be 'asc' or 'desc' implying ascending and descending
+   direction:string
+
+   // accounts table account_id column equality exact match filtering
+   accounts.account_id.eq:long
+
+   // accounts table status column wildcard filtering with SQL like '%' comparison
+   accounts.status.like:string
+
+   // accounts table status column equality exact match filtering
+   accounts.status.eq:string
+
+   // accounts table created column equality exact match filtering
+   accounts.created.eq:date
+
+   // accounts table name column wildcard filtering with SQL like '%' comparison
+   accounts.name.like:string
+
+   // accounts table name column equality exact match filtering
+   accounts.name.eq:string
+
+   // accounts table website column wildcard filtering with SQL like '%' comparison
+   accounts.website.like:string
+
+   // accounts table website column equality exact match filtering
+   accounts.website.eq:string
+
+   // accounts table description column wildcard filtering with SQL like '%' comparison
+   accounts.description.like:string
+
+   // accounts table description column equality exact match filtering
+   accounts.description.eq:string
+
+   // accounts table account_manager column wildcard filtering with SQL like '%' comparison
+   accounts.account_manager.like:string
+
+   // accounts table account_manager column equality exact match filtering
+   accounts.account_manager.eq:string
+
+// Meta data description for endpoint
+.description:Read or list records from your accounts table in your robo-crm database with paging, sorting, filtering selecting returning account_id, status, created, name, website, description, account_manager filtering on account_id, status, created, name, website, description, account_manager with authentication and authorisation for root,admin roles
+
+// Type of endpoint
+.type:crud-read
+
+// Verifying user is authorized to access endpoint.
+auth.ticket.verify:root,admin
+
+// Opening up our database connection.
+data.connect:[generic|robo-crm]
+   database-type:sqlite
+
+   // Parametrising our read invocation with ordering arguments if specified.
+   add:x:./*/data.read
+      get-nodes:x:@.arguments/*/order
+      get-nodes:x:@.arguments/*/direction
+   remove-nodes:x:@.arguments/*/order
+   remove-nodes:x:@.arguments/*/direction
+
+   // Parametrising our read invocation with paging arguments if specified.
+   add:x:./*/data.read
+      get-nodes:x:@.arguments/*/limit
+      get-nodes:x:@.arguments/*/offset
+   remove-nodes:x:@.arguments/*/limit
+   remove-nodes:x:@.arguments/*/offset
+
+   // Parametrising our read invocation with filtering arguments.
+   add:x:./*/data.read/*/where/*
+      get-nodes:x:@.arguments/*
+
+   // Reading data from database.
+   data.read
+      database-type:sqlite
+      table:accounts
+      columns
+         accounts.account_id
+         accounts.status
+         accounts.created
+         accounts.name
+         accounts.website
+         accounts.description
+         accounts.account_manager
+      where
+         and
+
+   // Returning result of above read invocation to caller.
+   return-nodes:x:@data.read/*

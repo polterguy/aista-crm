@@ -1,0 +1,159 @@
+
+// Read or list records from your contacts table in your robo-crm database with paging, sorting, filtering selecting returning contact_id, account_id, created, name, phone, email, country, city, linkedIn, source, meta, description, subscriber, confirmed filtering on contact_id, account_id, created, name, phone, email, country, city, linkedIn, source, meta, description, subscriber, confirmed with authentication and authorisation for root,admin roles
+.arguments
+
+   // Number of records to return
+   limit:long
+
+   // Offset into the dataset of where to start retrieving records
+   offset:long
+
+   // Fully qualified name of column to order by, implying TABLE_NAME.COLUMN_NAME.
+   order:string
+
+   // What direction to order, can be 'asc' or 'desc' implying ascending and descending
+   direction:string
+
+   // contacts table contact_id column equality exact match filtering
+   contacts.contact_id.eq:long
+
+   // contacts table account_id column equality exact match filtering
+   contacts.account_id.eq:long
+
+   // contacts table created column equality exact match filtering
+   contacts.created.eq:date
+
+   // contacts table name column wildcard filtering with SQL like '%' comparison
+   contacts.name.like:string
+
+   // contacts table name column equality exact match filtering
+   contacts.name.eq:string
+
+   // contacts table phone column wildcard filtering with SQL like '%' comparison
+   contacts.phone.like:string
+
+   // contacts table phone column equality exact match filtering
+   contacts.phone.eq:string
+
+   // contacts table email column wildcard filtering with SQL like '%' comparison
+   contacts.email.like:string
+
+   // contacts table email column equality exact match filtering
+   contacts.email.eq:string
+
+   // contacts table country column wildcard filtering with SQL like '%' comparison
+   contacts.country.like:string
+
+   // contacts table country column equality exact match filtering
+   contacts.country.eq:string
+
+   // contacts table city column wildcard filtering with SQL like '%' comparison
+   contacts.city.like:string
+
+   // contacts table city column equality exact match filtering
+   contacts.city.eq:string
+
+   // contacts table linkedIn column wildcard filtering with SQL like '%' comparison
+   contacts.linkedIn.like:string
+
+   // contacts table linkedIn column equality exact match filtering
+   contacts.linkedIn.eq:string
+
+   // contacts table source column wildcard filtering with SQL like '%' comparison
+   contacts.source.like:string
+
+   // contacts table source column equality exact match filtering
+   contacts.source.eq:string
+
+   // contacts table meta column wildcard filtering with SQL like '%' comparison
+   contacts.meta.like:string
+
+   // contacts table meta column equality exact match filtering
+   contacts.meta.eq:string
+
+   // contacts table description column wildcard filtering with SQL like '%' comparison
+   contacts.description.like:string
+
+   // contacts table description column equality exact match filtering
+   contacts.description.eq:string
+
+   // contacts table subscriber column equality exact match filtering
+   contacts.subscriber.eq:long
+
+   // contacts table confirmed column equality exact match filtering
+   contacts.confirmed.eq:long
+
+   // accounts table status column equality exact match filtering
+   account_id.status.eq:string
+
+   // accounts table status column wildcard filtering with SQL like '%' comparison
+   account_id.status.like:string
+
+// Meta data description for endpoint
+.description:Read or list records from your contacts table in your robo-crm database with paging, sorting, filtering selecting returning contact_id, account_id, created, name, phone, email, country, city, linkedIn, source, meta, description, subscriber, confirmed filtering on contact_id, account_id, created, name, phone, email, country, city, linkedIn, source, meta, description, subscriber, confirmed with authentication and authorisation for root,admin roles
+
+// Type of endpoint
+.type:crud-read
+
+// Columns with custom handling as frontend is generated.
+.handling
+   contacts.phone:phone
+   contacts.email:email
+
+// Verifying user is authorized to access endpoint.
+auth.ticket.verify:root,admin
+
+// Opening up our database connection.
+data.connect:[generic|robo-crm]
+   database-type:sqlite
+
+   // Parametrising our read invocation with ordering arguments if specified.
+   add:x:./*/data.read
+      get-nodes:x:@.arguments/*/order
+      get-nodes:x:@.arguments/*/direction
+   remove-nodes:x:@.arguments/*/order
+   remove-nodes:x:@.arguments/*/direction
+
+   // Parametrising our read invocation with paging arguments if specified.
+   add:x:./*/data.read
+      get-nodes:x:@.arguments/*/limit
+      get-nodes:x:@.arguments/*/offset
+   remove-nodes:x:@.arguments/*/limit
+   remove-nodes:x:@.arguments/*/offset
+
+   // Parametrising our read invocation with filtering arguments.
+   add:x:./*/data.read/*/where/*
+      get-nodes:x:@.arguments/*
+
+   // Reading data from database.
+   data.read
+      database-type:sqlite
+      table:contacts
+         join:accounts
+            as:account_id
+            type:left
+            on
+               and
+                  contacts.account_id:account_id.account_id
+      columns
+         contacts.contact_id
+         contacts.account_id
+         contacts.created
+         contacts.name
+         contacts.phone
+         contacts.email
+         contacts.country
+         contacts.city
+         contacts.linkedIn
+         contacts.source
+         contacts.meta
+         contacts.description
+         contacts.subscriber
+         contacts.confirmed
+         account_id.status
+            as:account_id.status
+      where
+         and
+
+   // Returning result of above read invocation to caller.
+   return-nodes:x:@data.read/*

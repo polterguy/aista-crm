@@ -1,0 +1,88 @@
+
+// Update one record in your activities table in your robo-crm database filtering which item to update with activity_id updating type, contact_id, due, username, description, closed fields with authentication and authorisation for root,admin roles
+.arguments
+
+   // activity_id column value being primary key of record to update, mandatory argument
+   activity_id:long
+
+   // type column's new value
+   type:string
+
+   // contact_id column's new value
+   contact_id:long
+
+   // due column's new value
+   due:date
+
+   // description column's new value
+   description:string
+
+   // closed column's new value
+   closed:date
+
+// Meta data description for endpoint
+.description:Update one record in your activities table in your robo-crm database filtering which item to update with activity_id updating type, contact_id, due, username, description, closed fields with authentication and authorisation for root,admin roles
+
+// Type of endpoint
+.type:crud-update
+
+// Sanity checking invocation, making sure primary key(s) are specified.
+validators.mandatory:x:@.arguments/*/activity_id
+
+// Verifying user is authorized to access endpoint.
+auth.ticket.verify:root,admin
+.foreign-keys
+   .
+      column:type
+      table:activity_types
+      foreign_column:type
+      foreign_name:type
+      long:bool:true
+   .
+      column:contact_id
+      table:contacts
+      foreign_column:contact_id
+      foreign_name:name
+      long:bool:true
+
+// Making sure we retrieve lock value for column.
+auth.ticket.get
+
+// Opening up our database connection.
+data.connect:[generic|robo-crm]
+   database-type:sqlite
+
+   // Parametrising our invocation.
+   add:x:./*/data.update/*/values
+      get-nodes:x:@.arguments/*/[1,1000]
+   add:x:./*/data.update/*/where/*/and
+      get-nodes:x:@.arguments/*/[0,1]
+
+   // Invoking our update slot.
+   data.update
+      database-type:sqlite
+      table:activities
+      values
+      where
+         and
+
+            // Table is locked on the following field.
+            username.eq:x:@auth.ticket.get
+
+   // Verifying record exists.
+   if
+      eq
+         get-value:x:@data.update
+         .:int:0
+      .lambda
+         response.status.set:404
+         return
+            result:Record not found
+
+   // Returning the correct status code.
+   response.status.set:202
+
+   // Returning success to caller.
+   unwrap:x:+/*
+   return
+      affected:x:@data.update

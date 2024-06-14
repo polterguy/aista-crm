@@ -1,0 +1,68 @@
+
+// Counts items from your accounts table in your robo-crm database
+.arguments
+
+   // accounts table account_id column equality exact match filtering
+   accounts.account_id.eq:long
+
+   // accounts table status column wildcard filtering with SQL like '%' comparison
+   accounts.status.like:string
+
+   // accounts table status column equality exact match filtering
+   accounts.status.eq:string
+
+   // accounts table created column equality exact match filtering
+   accounts.created.eq:date
+
+   // accounts table name column wildcard filtering with SQL like '%' comparison
+   accounts.name.like:string
+
+   // accounts table name column equality exact match filtering
+   accounts.name.eq:string
+
+   // accounts table website column wildcard filtering with SQL like '%' comparison
+   accounts.website.like:string
+
+   // accounts table website column equality exact match filtering
+   accounts.website.eq:string
+
+   // accounts table description column wildcard filtering with SQL like '%' comparison
+   accounts.description.like:string
+
+   // accounts table description column equality exact match filtering
+   accounts.description.eq:string
+
+   // accounts table account_manager column wildcard filtering with SQL like '%' comparison
+   accounts.account_manager.like:string
+
+   // accounts table account_manager column equality exact match filtering
+   accounts.account_manager.eq:string
+
+// Meta data description for endpoint
+.description:Counts items from your accounts table in your robo-crm database
+
+// Type of endpoint
+.type:crud-count
+
+// Verifying user is authorized to access endpoint.
+auth.ticket.verify:root,admin
+
+// Opening up our database connection.
+data.connect:[generic|robo-crm]
+   database-type:sqlite
+   add:x:+/*/where/*
+      get-nodes:x:@.arguments/*
+
+   // Reading data from database.
+   data.read
+      database-type:sqlite
+      table:accounts
+      columns
+         count(*)
+            as:count
+      where
+         and
+      limit:long:1
+
+   // Returning result of above read invocation to caller.
+   return-nodes:x:@data.read/*/*

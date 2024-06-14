@@ -1,0 +1,96 @@
+
+// Update one record in your contacts table in your robo-crm database filtering which item to update with contact_id updating account_id, name, phone, email, country, city, linkedIn, source, meta, description fields with authentication and authorisation for root,admin roles
+.arguments
+
+   // contact_id column value being primary key of record to update, mandatory argument
+   contact_id:long
+
+   // account_id column's new value
+   account_id:long
+
+   // name column's new value
+   name:string
+
+   // phone column's new value
+   phone:string
+
+   // email column's new value
+   email:string
+
+   // country column's new value
+   country:string
+
+   // city column's new value
+   city:string
+
+   // linkedIn column's new value
+   linkedIn:string
+
+   // source column's new value
+   source:string
+
+   // meta column's new value
+   meta:string
+
+   // description column's new value
+   description:string
+
+// Meta data description for endpoint
+.description:Update one record in your contacts table in your robo-crm database filtering which item to update with contact_id updating account_id, name, phone, email, country, city, linkedIn, source, meta, description fields with authentication and authorisation for root,admin roles
+
+// Type of endpoint
+.type:crud-update
+
+// Columns with custom handling as we generate a frontend
+.handling
+   phone:phone
+   email:email
+
+// Sanity checking invocation, making sure primary key(s) are specified.
+validators.mandatory:x:@.arguments/*/contact_id
+
+// Verifying user is authorized to access endpoint.
+auth.ticket.verify:root,admin
+.foreign-keys
+   .
+      column:account_id
+      table:accounts
+      foreign_column:account_id
+      foreign_name:status
+      long:bool:true
+
+// Opening up our database connection.
+data.connect:[generic|robo-crm]
+   database-type:sqlite
+
+   // Parametrising our invocation.
+   add:x:./*/data.update/*/values
+      get-nodes:x:@.arguments/*/[1,1000]
+   add:x:./*/data.update/*/where/*/and
+      get-nodes:x:@.arguments/*/[0,1]
+
+   // Invoking our update slot.
+   data.update
+      database-type:sqlite
+      table:contacts
+      values
+      where
+         and
+
+   // Verifying record exists.
+   if
+      eq
+         get-value:x:@data.update
+         .:int:0
+      .lambda
+         response.status.set:404
+         return
+            result:Record not found
+
+   // Returning the correct status code.
+   response.status.set:202
+
+   // Returning success to caller.
+   unwrap:x:+/*
+   return
+      affected:x:@data.update

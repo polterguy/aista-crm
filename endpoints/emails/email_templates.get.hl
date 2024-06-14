@@ -1,0 +1,75 @@
+
+// Read or list records from your email_templates table in your robo-crm database with paging, sorting, filtering selecting returning email_template_id, name, content filtering on email_template_id, name, content with authentication and authorisation for root,admin roles
+.arguments
+
+   // Number of records to return
+   limit:long
+
+   // Offset into the dataset of where to start retrieving records
+   offset:long
+
+   // Fully qualified name of column to order by, implying TABLE_NAME.COLUMN_NAME.
+   order:string
+
+   // What direction to order, can be 'asc' or 'desc' implying ascending and descending
+   direction:string
+
+   // email_templates table email_template_id column equality exact match filtering
+   email_templates.email_template_id.eq:long
+
+   // email_templates table name column wildcard filtering with SQL like '%' comparison
+   email_templates.name.like:string
+
+   // email_templates table name column equality exact match filtering
+   email_templates.name.eq:string
+
+   // email_templates table content column wildcard filtering with SQL like '%' comparison
+   email_templates.content.like:string
+
+   // email_templates table content column equality exact match filtering
+   email_templates.content.eq:string
+
+// Meta data description for endpoint
+.description:Read or list records from your email_templates table in your robo-crm database with paging, sorting, filtering selecting returning email_template_id, name, content filtering on email_template_id, name, content with authentication and authorisation for root,admin roles
+
+// Type of endpoint
+.type:crud-read
+
+// Verifying user is authorized to access endpoint.
+auth.ticket.verify:root,admin
+
+// Opening up our database connection.
+data.connect:[generic|robo-crm]
+   database-type:sqlite
+
+   // Parametrising our read invocation with ordering arguments if specified.
+   add:x:./*/data.read
+      get-nodes:x:@.arguments/*/order
+      get-nodes:x:@.arguments/*/direction
+   remove-nodes:x:@.arguments/*/order
+   remove-nodes:x:@.arguments/*/direction
+
+   // Parametrising our read invocation with paging arguments if specified.
+   add:x:./*/data.read
+      get-nodes:x:@.arguments/*/limit
+      get-nodes:x:@.arguments/*/offset
+   remove-nodes:x:@.arguments/*/limit
+   remove-nodes:x:@.arguments/*/offset
+
+   // Parametrising our read invocation with filtering arguments.
+   add:x:./*/data.read/*/where/*
+      get-nodes:x:@.arguments/*
+
+   // Reading data from database.
+   data.read
+      database-type:sqlite
+      table:email_templates
+      columns
+         email_templates.email_template_id
+         email_templates.name
+         email_templates.content
+      where
+         and
+
+   // Returning result of above read invocation to caller.
+   return-nodes:x:@data.read/*

@@ -1,0 +1,38 @@
+
+// Delete one record from your accounts table in your robo-crm database with account_id matching argument with authentication and authorisation for root,admin roles
+.arguments
+
+   // Primary key of record to delete, mandatory argument
+   account_id:long
+
+// Meta data description for endpoint
+.description:Delete one record from your accounts table in your robo-crm database with account_id matching argument with authentication and authorisation for root,admin roles
+
+// Type of endpoint
+.type:crud-delete
+
+// Verifying user is authorized to access endpoint.
+auth.ticket.verify:root,admin
+
+// Sanity checking invocation, making sure primary key(s) are specified.
+validators.mandatory:x:@.arguments/*/account_id
+
+// Opening up our database connection.
+data.connect:[generic|robo-crm]
+   database-type:sqlite
+
+   // Parametrising our delete invocation.
+   add:x:./*/data.delete/*/where/*/and
+      get-nodes:x:@.arguments/*
+
+   // Deleting item from database.
+   data.delete
+      database-type:sqlite
+      table:accounts
+      where
+         and
+
+   // Returning result of above invocation to caller.
+   unwrap:x:+/*
+   return
+      affected:x:@data.delete

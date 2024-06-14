@@ -1,0 +1,44 @@
+
+// Counts items from your status table in your robo-crm database
+.arguments
+
+   // status table status column wildcard filtering with SQL like '%' comparison
+   status.status.like:string
+
+   // status table status column equality exact match filtering
+   status.status.eq:string
+
+   // status table description column wildcard filtering with SQL like '%' comparison
+   status.description.like:string
+
+   // status table description column equality exact match filtering
+   status.description.eq:string
+
+// Meta data description for endpoint
+.description:Counts items from your status table in your robo-crm database
+
+// Type of endpoint
+.type:crud-count
+
+// Verifying user is authorized to access endpoint.
+auth.ticket.verify:root,admin
+
+// Opening up our database connection.
+data.connect:[generic|robo-crm]
+   database-type:sqlite
+   add:x:+/*/where/*
+      get-nodes:x:@.arguments/*
+
+   // Reading data from database.
+   data.read
+      database-type:sqlite
+      table:status
+      columns
+         count(*)
+            as:count
+      where
+         and
+      limit:long:1
+
+   // Returning result of above read invocation to caller.
+   return-nodes:x:@data.read/*/*

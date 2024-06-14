@@ -1,0 +1,80 @@
+
+// Counts items from your activities table in your robo-crm database
+.arguments
+
+   // activities table activity_id column equality exact match filtering
+   activities.activity_id.eq:long
+
+   // activities table type column wildcard filtering with SQL like '%' comparison
+   activities.type.like:string
+
+   // activities table type column equality exact match filtering
+   activities.type.eq:string
+
+   // activities table contact_id column equality exact match filtering
+   activities.contact_id.eq:long
+
+   // activities table created column equality exact match filtering
+   activities.created.eq:date
+
+   // activities table due column equality exact match filtering
+   activities.due.eq:date
+
+   // activities table description column wildcard filtering with SQL like '%' comparison
+   activities.description.like:string
+
+   // activities table description column equality exact match filtering
+   activities.description.eq:string
+
+   // activities table closed column equality exact match filtering
+   activities.closed.eq:date
+
+   // activities table notified column equality exact match filtering
+   activities.notified.eq:long
+
+   // contacts table name column equality exact match filtering
+   contact_id.name.eq:string
+
+   // contacts table name column wildcard filtering with SQL like '%' comparison
+   contact_id.name.like:string
+
+// Meta data description for endpoint
+.description:Counts items from your activities table in your robo-crm database
+
+// Type of endpoint
+.type:crud-count
+
+// Verifying user is authorized to access endpoint.
+auth.ticket.verify:root,admin
+
+// Making sure we retrieve lock value for column.
+auth.ticket.get
+
+// Opening up our database connection.
+data.connect:[generic|robo-crm]
+   database-type:sqlite
+   add:x:+/*/where/*
+      get-nodes:x:@.arguments/*
+
+   // Reading data from database.
+   data.read
+      database-type:sqlite
+      table:activities
+         join:contacts
+            as:contact_id
+            type:left
+            on
+               and
+                  activities.contact_id:contact_id.contact_id
+      columns
+         count(*)
+            as:count
+      where
+         and
+
+            // Table is locked on the following field.
+            username.eq:x:@auth.ticket.get
+      limit:long:1
+
+   // Returning result of above read invocation to caller.
+   return-nodes:x:@data.read/*/*

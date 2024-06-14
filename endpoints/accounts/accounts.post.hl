@@ -1,0 +1,57 @@
+
+// Create inserting one record into your accounts table in your robo-crm database taking status, name, website, description, account_manager with authentication and authorisation for root,admin roles
+.arguments
+
+   // status column value
+   status:string
+
+   // name column value
+   name:string
+
+   // website column value
+   website:string
+
+   // description column value
+   description:string
+
+   // account_manager column value
+   account_manager:string
+
+// Meta data description for endpoint
+.description:Create inserting one record into your accounts table in your robo-crm database taking status, name, website, description, account_manager with authentication and authorisation for root,admin roles
+
+// Type of endpoint
+.type:crud-create
+
+// Verifying user is authorized to access endpoint.
+auth.ticket.verify:root,admin
+.foreign-keys
+   .
+      column:status
+      table:status
+      foreign_column:status
+      foreign_name:status
+      long:bool:true
+
+// Opening up database connection.
+data.connect:[generic|robo-crm]
+   database-type:sqlite
+
+   // Parametrising our create invocation.
+   add:x:./*/data.create/*/values
+      get-nodes:x:@.arguments/*
+
+   // Creating our record.
+   data.create
+      database-type:sqlite
+      table:accounts
+      return-id:bool:true
+      values
+
+   // Returning the correct status code.
+   response.status.set:201
+
+   // Returning result of above invocation to caller.
+   unwrap:x:+/*
+   return
+      id:x:@data.create

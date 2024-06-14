@@ -1,0 +1,41 @@
+
+// Create inserting one record into your email_templates table in your robo-crm database taking name, content with authentication and authorisation for root,admin roles
+.arguments
+
+   // name column value
+   name:string
+
+   // content column value
+   content:string
+
+// Meta data description for endpoint
+.description:Create inserting one record into your email_templates table in your robo-crm database taking name, content with authentication and authorisation for root,admin roles
+
+// Type of endpoint
+.type:crud-create
+
+// Verifying user is authorized to access endpoint.
+auth.ticket.verify:root,admin
+
+// Opening up database connection.
+data.connect:[generic|robo-crm]
+   database-type:sqlite
+
+   // Parametrising our create invocation.
+   add:x:./*/data.create/*/values
+      get-nodes:x:@.arguments/*
+
+   // Creating our record.
+   data.create
+      database-type:sqlite
+      table:email_templates
+      return-id:bool:true
+      values
+
+   // Returning the correct status code.
+   response.status.set:201
+
+   // Returning result of above invocation to caller.
+   unwrap:x:+/*
+   return
+      id:x:@data.create

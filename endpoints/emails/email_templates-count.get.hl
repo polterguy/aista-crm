@@ -1,0 +1,47 @@
+
+// Counts items from your email_templates table in your robo-crm database
+.arguments
+
+   // email_templates table email_template_id column equality exact match filtering
+   email_templates.email_template_id.eq:long
+
+   // email_templates table name column wildcard filtering with SQL like '%' comparison
+   email_templates.name.like:string
+
+   // email_templates table name column equality exact match filtering
+   email_templates.name.eq:string
+
+   // email_templates table content column wildcard filtering with SQL like '%' comparison
+   email_templates.content.like:string
+
+   // email_templates table content column equality exact match filtering
+   email_templates.content.eq:string
+
+// Meta data description for endpoint
+.description:Counts items from your email_templates table in your robo-crm database
+
+// Type of endpoint
+.type:crud-count
+
+// Verifying user is authorized to access endpoint.
+auth.ticket.verify:root,admin
+
+// Opening up our database connection.
+data.connect:[generic|robo-crm]
+   database-type:sqlite
+   add:x:+/*/where/*
+      get-nodes:x:@.arguments/*
+
+   // Reading data from database.
+   data.read
+      database-type:sqlite
+      table:email_templates
+      columns
+         count(*)
+            as:count
+      where
+         and
+      limit:long:1
+
+   // Returning result of above read invocation to caller.
+   return-nodes:x:@data.read/*/*
