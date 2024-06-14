@@ -1,5 +1,5 @@
 
-// Update one record in your contacts table in your robo-crm database filtering which item to update with contact_id updating account_id, name, phone, email, country, city, linkedIn, source, meta, description fields with authentication and authorisation for root,admin roles
+// Update one record in your contacts table
 .arguments
 
    // contact_id column value being primary key of record to update, mandatory argument
@@ -17,47 +17,20 @@
    // email column's new value
    email:string
 
-   // country column's new value
-   country:string
-
-   // city column's new value
-   city:string
-
-   // linkedIn column's new value
-   linkedIn:string
-
-   // source column's new value
-   source:string
-
-   // meta column's new value
-   meta:string
-
    // description column's new value
    description:string
 
 // Meta data description for endpoint
-.description:Update one record in your contacts table in your robo-crm database filtering which item to update with contact_id updating account_id, name, phone, email, country, city, linkedIn, source, meta, description fields with authentication and authorisation for root,admin roles
+.description:Update one record in your contacts table
 
 // Type of endpoint
 .type:crud-update
-
-// Columns with custom handling as we generate a frontend
-.handling
-   phone:phone
-   email:email
 
 // Sanity checking invocation, making sure primary key(s) are specified.
 validators.mandatory:x:@.arguments/*/contact_id
 
 // Verifying user is authorized to access endpoint.
 auth.ticket.verify:root,admin
-.foreign-keys
-   .
-      column:account_id
-      table:accounts
-      foreign_column:account_id
-      foreign_name:status
-      long:bool:true
 
 // Opening up our database connection.
 data.connect:[generic|robo-crm]

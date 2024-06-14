@@ -1,5 +1,5 @@
 
-// Read or list records from your contacts table in your robo-crm database with paging, sorting, filtering selecting returning contact_id, account_id, created, name, phone, email, country, city, linkedIn, source, meta, description, subscriber, confirmed filtering on contact_id, account_id, created, name, phone, email, country, city, linkedIn, source, meta, description, subscriber, confirmed with authentication and authorisation for root,admin roles
+// Read, list or find records from your contacts table
 .arguments
 
    // Number of records to return
@@ -20,9 +20,6 @@
    // contacts table account_id column equality exact match filtering
    contacts.account_id.eq:long
 
-   // contacts table created column equality exact match filtering
-   contacts.created.eq:date
-
    // contacts table name column wildcard filtering with SQL like '%' comparison
    contacts.name.like:string
 
@@ -41,64 +38,23 @@
    // contacts table email column equality exact match filtering
    contacts.email.eq:string
 
-   // contacts table country column wildcard filtering with SQL like '%' comparison
-   contacts.country.like:string
-
-   // contacts table country column equality exact match filtering
-   contacts.country.eq:string
-
-   // contacts table city column wildcard filtering with SQL like '%' comparison
-   contacts.city.like:string
-
-   // contacts table city column equality exact match filtering
-   contacts.city.eq:string
-
-   // contacts table linkedIn column wildcard filtering with SQL like '%' comparison
-   contacts.linkedIn.like:string
-
-   // contacts table linkedIn column equality exact match filtering
-   contacts.linkedIn.eq:string
-
-   // contacts table source column wildcard filtering with SQL like '%' comparison
-   contacts.source.like:string
-
-   // contacts table source column equality exact match filtering
-   contacts.source.eq:string
-
-   // contacts table meta column wildcard filtering with SQL like '%' comparison
-   contacts.meta.like:string
-
-   // contacts table meta column equality exact match filtering
-   contacts.meta.eq:string
-
    // contacts table description column wildcard filtering with SQL like '%' comparison
    contacts.description.like:string
 
    // contacts table description column equality exact match filtering
    contacts.description.eq:string
 
-   // contacts table subscriber column equality exact match filtering
-   contacts.subscriber.eq:long
-
-   // contacts table confirmed column equality exact match filtering
-   contacts.confirmed.eq:long
-
    // accounts table status column equality exact match filtering
-   account_id.status.eq:string
+   account_id.name.eq:string
 
    // accounts table status column wildcard filtering with SQL like '%' comparison
-   account_id.status.like:string
+   account_id.name.like:string
 
 // Meta data description for endpoint
-.description:Read or list records from your contacts table in your robo-crm database with paging, sorting, filtering selecting returning contact_id, account_id, created, name, phone, email, country, city, linkedIn, source, meta, description, subscriber, confirmed filtering on contact_id, account_id, created, name, phone, email, country, city, linkedIn, source, meta, description, subscriber, confirmed with authentication and authorisation for root,admin roles
+.description:Read or list records from your contacts table
 
 // Type of endpoint
 .type:crud-read
-
-// Columns with custom handling as frontend is generated.
-.handling
-   contacts.phone:phone
-   contacts.email:email
 
 // Verifying user is authorized to access endpoint.
 auth.ticket.verify:root,admin
@@ -142,15 +98,8 @@ data.connect:[generic|robo-crm]
          contacts.name
          contacts.phone
          contacts.email
-         contacts.country
-         contacts.city
-         contacts.linkedIn
-         contacts.source
-         contacts.meta
          contacts.description
-         contacts.subscriber
-         contacts.confirmed
-         account_id.status
+         account_id.name
             as:account_id.status
       where
          and

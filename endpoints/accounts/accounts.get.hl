@@ -1,5 +1,5 @@
 
-// Read or list records from your accounts table in your robo-crm database with paging, sorting, filtering selecting returning account_id, status, created, name, website, description, account_manager filtering on account_id, status, created, name, website, description, account_manager with authentication and authorisation for root,admin roles
+// Read, list or find records from your accounts table
 .arguments
 
    // Number of records to return
@@ -17,14 +17,8 @@
    // accounts table account_id column equality exact match filtering
    accounts.account_id.eq:long
 
-   // accounts table status column wildcard filtering with SQL like '%' comparison
-   accounts.status.like:string
-
    // accounts table status column equality exact match filtering
    accounts.status.eq:string
-
-   // accounts table created column equality exact match filtering
-   accounts.created.eq:date
 
    // accounts table name column wildcard filtering with SQL like '%' comparison
    accounts.name.like:string
@@ -41,17 +35,8 @@
    // accounts table description column wildcard filtering with SQL like '%' comparison
    accounts.description.like:string
 
-   // accounts table description column equality exact match filtering
-   accounts.description.eq:string
-
-   // accounts table account_manager column wildcard filtering with SQL like '%' comparison
-   accounts.account_manager.like:string
-
-   // accounts table account_manager column equality exact match filtering
-   accounts.account_manager.eq:string
-
 // Meta data description for endpoint
-.description:Read or list records from your accounts table in your robo-crm database with paging, sorting, filtering selecting returning account_id, status, created, name, website, description, account_manager filtering on account_id, status, created, name, website, description, account_manager with authentication and authorisation for root,admin roles
+.description:Read or list records from your accounts table
 
 // Type of endpoint
 .type:crud-read
@@ -92,7 +77,6 @@ data.connect:[generic|robo-crm]
          accounts.name
          accounts.website
          accounts.description
-         accounts.account_manager
       where
          and
 

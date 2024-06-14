@@ -1,63 +1,27 @@
 
-// Create inserting one record into your contacts table in your robo-crm database taking account_id, name, phone, email, country, city, linkedIn, source, meta, description, subscriber, confirmed with authentication and authorisation for root,admin roles
+// Create inserting one record into your contacts table
 .arguments
 
-   // account_id column value
+   // account_id column value, mandatory column
    account_id:long
 
-   // name column value
+   // name column value, mandatory column
    name:string
 
    // phone column value
    phone:string
 
-   // email column value
+   // email column value, mandatory column
    email:string
-
-   // country column value
-   country:string
-
-   // city column value
-   city:string
-
-   // linkedIn column value
-   linkedIn:string
-
-   // source column value
-   source:string
-
-   // meta column value
-   meta:string
 
    // description column value
    description:string
 
-   // subscriber column value
-   subscriber:long
-
-   // confirmed column value
-   confirmed:long
-
 // Meta data description for endpoint
-.description:Create inserting one record into your contacts table in your robo-crm database taking account_id, name, phone, email, country, city, linkedIn, source, meta, description, subscriber, confirmed with authentication and authorisation for root,admin roles
+.description:Create inserting one record into your contacts table
 
 // Type of endpoint
 .type:crud-create
-
-// Columns with custom handling as we generate a frontend
-.handling
-   phone:phone
-   email:email
-
-// Verifying user is authorized to access endpoint.
-auth.ticket.verify:root,admin
-.foreign-keys
-   .
-      column:account_id
-      table:accounts
-      foreign_column:account_id
-      foreign_name:status
-      long:bool:true
 
 // Opening up database connection.
 data.connect:[generic|robo-crm]

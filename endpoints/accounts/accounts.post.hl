@@ -1,8 +1,8 @@
 
-// Create inserting one record into your accounts table in your robo-crm database taking status, name, website, description, account_manager with authentication and authorisation for root,admin roles
+// Create inserting one record into your accounts table
 .arguments
 
-   // status column value
+   // status column value. Optional, defaults to "Lead". Can be "Lead", "Client" or "Partner".
    status:string
 
    // name column value
@@ -14,24 +14,11 @@
    // description column value
    description:string
 
-   // account_manager column value
-   account_manager:string
-
 // Meta data description for endpoint
-.description:Create inserting one record into your accounts table in your robo-crm database taking status, name, website, description, account_manager with authentication and authorisation for root,admin roles
+.description:Create inserting one record into your accounts table
 
 // Type of endpoint
 .type:crud-create
-
-// Verifying user is authorized to access endpoint.
-auth.ticket.verify:root,admin
-.foreign-keys
-   .
-      column:status
-      table:status
-      foreign_column:status
-      foreign_name:status
-      long:bool:true
 
 // Opening up database connection.
 data.connect:[generic|robo-crm]

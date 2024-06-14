@@ -1,5 +1,5 @@
 
-// Counts items from your activities table in your robo-crm database
+// Counts items from your activities table
 .arguments
 
    // activities table activity_id column equality exact match filtering
@@ -17,20 +17,11 @@
    // activities table created column equality exact match filtering
    activities.created.eq:date
 
-   // activities table due column equality exact match filtering
-   activities.due.eq:date
-
    // activities table description column wildcard filtering with SQL like '%' comparison
    activities.description.like:string
 
    // activities table description column equality exact match filtering
    activities.description.eq:string
-
-   // activities table closed column equality exact match filtering
-   activities.closed.eq:date
-
-   // activities table notified column equality exact match filtering
-   activities.notified.eq:long
 
    // contacts table name column equality exact match filtering
    contact_id.name.eq:string
@@ -39,7 +30,7 @@
    contact_id.name.like:string
 
 // Meta data description for endpoint
-.description:Counts items from your activities table in your robo-crm database
+.description:Counts items from your activities table
 
 // Type of endpoint
 .type:crud-count
@@ -53,6 +44,7 @@ auth.ticket.get
 // Opening up our database connection.
 data.connect:[generic|robo-crm]
    database-type:sqlite
+
    add:x:+/*/where/*
       get-nodes:x:@.arguments/*
 
@@ -69,11 +61,6 @@ data.connect:[generic|robo-crm]
       columns
          count(*)
             as:count
-      where
-         and
-
-            // Table is locked on the following field.
-            username.eq:x:@auth.ticket.get
       limit:long:1
 
    // Returning result of above read invocation to caller.

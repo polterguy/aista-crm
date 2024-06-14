@@ -1,12 +1,12 @@
 
-// Delete one record from your contacts table in your robo-crm database with contact_id matching argument with authentication and authorisation for root,admin roles
+// Delete one record from your contacts table
 .arguments
 
    // Primary key of record to delete, mandatory argument
    contact_id:long
 
 // Meta data description for endpoint
-.description:Delete one record from your contacts table in your robo-crm database with contact_id matching argument with authentication and authorisation for root,admin roles
+.description:Delete one record from your contacts table
 
 // Type of endpoint
 .type:crud-delete

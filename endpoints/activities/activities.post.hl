@@ -1,46 +1,24 @@
 
-// Create inserting one record into your activities table in your robo-crm database taking type, contact_id, due, username, description, closed, notified with authentication and authorisation for root,admin roles
+// Create inserting one record into your activities table
 .arguments
 
-   // type column value
+   // type column value, mandatory, references activity_types.type.
    type:string
 
-   // contact_id column value
+   // contact_id column value. Mandatory column, contact ID to associate activity with.
    contact_id:long
 
-   // due column value. Will use default_timestamp if not specified, being today's date.
-   due:date
-
-   // description column value
+   // description column value, optional.
    description:string
 
-   // closed column value. Will use default_timestamp if not specified, being today's date.
-   closed:date
-
 // Meta data description for endpoint
-.description:Create inserting one record into your activities table in your robo-crm database taking type, contact_id, due, username, description, closed, notified with authentication and authorisation for root,admin roles
+.description:Create inserting one record into your activities table
 
 // Type of endpoint
 .type:crud-create
 
 // Verifying user is authorized to access endpoint.
 auth.ticket.verify:root,admin
-.foreign-keys
-   .
-      column:type
-      table:activity_types
-      foreign_column:type
-      foreign_name:type
-      long:bool:true
-   .
-      column:contact_id
-      table:contacts
-      foreign_column:contact_id
-      foreign_name:name
-      long:bool:true
-
-// Making sure we retrieve lock value for column.
-auth.ticket.get
 
 // Opening up database connection.
 data.connect:[generic|robo-crm]
@@ -56,9 +34,6 @@ data.connect:[generic|robo-crm]
       table:activities
       return-id:bool:true
       values
-
-         // Table is locked on the following field.
-         username:x:@auth.ticket.get
 
    // Returning the correct status code.
    response.status.set:201

@@ -1,33 +1,9 @@
 
-// Read or list records from your activity_types table in your robo-crm database with paging, sorting, filtering selecting returning type, description filtering on type, description with authentication and authorisation for root,admin roles
+// Read or list records from your activity_types table
 .arguments
 
-   // Number of records to return
-   limit:long
-
-   // Offset into the dataset of where to start retrieving records
-   offset:long
-
-   // Fully qualified name of column to order by, implying TABLE_NAME.COLUMN_NAME.
-   order:string
-
-   // What direction to order, can be 'asc' or 'desc' implying ascending and descending
-   direction:string
-
-   // activity_types table type column wildcard filtering with SQL like '%' comparison
-   activity_types.type.like:string
-
-   // activity_types table type column equality exact match filtering
-   activity_types.type.eq:string
-
-   // activity_types table description column wildcard filtering with SQL like '%' comparison
-   activity_types.description.like:string
-
-   // activity_types table description column equality exact match filtering
-   activity_types.description.eq:string
-
 // Meta data description for endpoint
-.description:Read or list records from your activity_types table in your robo-crm database with paging, sorting, filtering selecting returning type, description filtering on type, description with authentication and authorisation for root,admin roles
+.description:Read or list records from your activity_types table
 
 // Type of endpoint
 .type:crud-read
@@ -39,24 +15,6 @@ auth.ticket.verify:root,admin
 data.connect:[generic|robo-crm]
    database-type:sqlite
 
-   // Parametrising our read invocation with ordering arguments if specified.
-   add:x:./*/data.read
-      get-nodes:x:@.arguments/*/order
-      get-nodes:x:@.arguments/*/direction
-   remove-nodes:x:@.arguments/*/order
-   remove-nodes:x:@.arguments/*/direction
-
-   // Parametrising our read invocation with paging arguments if specified.
-   add:x:./*/data.read
-      get-nodes:x:@.arguments/*/limit
-      get-nodes:x:@.arguments/*/offset
-   remove-nodes:x:@.arguments/*/limit
-   remove-nodes:x:@.arguments/*/offset
-
-   // Parametrising our read invocation with filtering arguments.
-   add:x:./*/data.read/*/where/*
-      get-nodes:x:@.arguments/*
-
    // Reading data from database.
    data.read
       database-type:sqlite
@@ -64,8 +22,6 @@ data.connect:[generic|robo-crm]
       columns
          activity_types.type
          activity_types.description
-      where
-         and
 
    // Returning result of above read invocation to caller.
    return-nodes:x:@data.read/*
