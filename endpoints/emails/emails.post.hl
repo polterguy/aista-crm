@@ -1,18 +1,18 @@
 
-// Create inserting one record into your emails table in your robo-crm database taking email_template_id, title, content with authentication and authorisation for root,admin roles
+// Sends an email to the specified [contact_id] being a contact from your robo-crm database.
 .arguments
 
-   // email_template_id column value
-   email_template_id:long
+   // email_template_id column value, argument is mandatory and must be the ID of a contact
+   contact_id:long
 
-   // title column value
-   title:string
+   // title column value, argument is mandatory
+   subject:string
 
-   // content column value
+   // content column value, argument is mandatory
    content:string
 
 // Meta data description for endpoint
-.description:Create inserting one record into your emails table in your robo-crm database taking email_template_id, title, content with authentication and authorisation for root,admin roles
+.description:Sends an email to the specified [contact_id] being a contact from your robo-crm database
 
 // Type of endpoint
 .type:crud-create
@@ -30,6 +30,38 @@ auth.ticket.verify:root,admin
 // Opening up database connection.
 data.connect:[generic|robo-crm]
    database-type:sqlite
+
+   // Transforms the specified [content] to HTML and returns to caller.
+   execute:magic.workflows.actions.execute
+      name:markdown2html
+      filename:/misc/workflows/actions/misc/markdown2html.hl
+      arguments
+         markdown:x:@.arguments/*/content
+
+   // Send the email.
+   data.read
+      database-type:sqlite
+      table:contacts
+      values
+         name
+         email
+
+   /*
+    * Sends an email to the specified [name]/[email] recipient, with the specified [subject] and [body].
+    *
+    * Optionally supply [from] and [from-email] as name/email sender, and/or [reply-to] and [reply-to-email]
+    * as the email to reply to. If you don't supply [from] or [from-email] then this action will use the
+    * default sender settings from your configuration.
+    */
+   execute:magic.workflows.actions.execute
+      name:email
+      filename:/misc/workflows/actions/misc/email.hl
+      arguments
+         subject:x:@.arguments/*/subject
+         html:bool:true
+         name:x:@data.read/*/*/name
+         email:x:@data.read/*/*/email
+         body:x:--/execute/=markdown2html/*/html
 
    // Parametrising our create invocation.
    add:x:./*/data.create/*/values

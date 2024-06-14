@@ -21,13 +21,13 @@
    emails.created.eq:date
 
    // emails table email_template_id column equality exact match filtering
-   emails.email_template_id.eq:long
+   emails.contact_id.eq:long
 
    // emails table title column wildcard filtering with SQL like '%' comparison
-   emails.title.like:string
+   emails.subject.like:string
 
    // emails table title column equality exact match filtering
-   emails.title.eq:string
+   emails.subject.eq:string
 
    // emails table content column wildcard filtering with SQL like '%' comparison
    emails.content.like:string
@@ -36,10 +36,10 @@
    emails.content.eq:string
 
    // email_templates table name column equality exact match filtering
-   email_template_id.name.eq:string
+   contact_id.name.eq:string
 
    // email_templates table name column wildcard filtering with SQL like '%' comparison
-   email_template_id.name.like:string
+   contact_id.name.like:string
 
 // Meta data description for endpoint
 .description:Read or list records from your emails table in your robo-crm database with paging, sorting, filtering selecting returning email_id, created, email_template_id, title, content filtering on email_id, created, email_template_id, title, content with authentication and authorisation for root,admin roles
