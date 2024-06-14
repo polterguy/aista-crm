@@ -168,18 +168,3 @@ insert into activities (type, contact_id, username, description) values
 ('Email', 9, 'root', 'Sent summary of key discussion points from last meeting.'),
 ('Meeting', 17, 'root', 'Annual review meeting with all department heads.');
 
-
-
-/*
- * Emails.
- */
-create table emails(
-  email_id integer primary key autoincrement,
-  contact_id integer references contacts(contact_id) not null,
-  created timestamp not null default current_timestamp,
-  subject text not null,
-  content text not null
-);
-
-
-
