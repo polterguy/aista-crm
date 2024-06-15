@@ -52,6 +52,7 @@ data.connect:[generic|robo-crm]
    add:x:./*/data.read
       get-nodes:x:@.arguments/*/order
       get-nodes:x:@.arguments/*/direction
+   remove-nodes:x:@.arguments/*/order
    remove-nodes:x:@.arguments/*/direction
 
    // Parametrising our read invocation with paging arguments if specified.
