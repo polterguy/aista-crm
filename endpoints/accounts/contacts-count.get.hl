@@ -11,14 +11,8 @@
    // contacts table name column equality exact match filtering
    contacts.name.eq:string
 
-   // contacts table phone column wildcard filtering with SQL like '%' comparison
-   contacts.phone.like:string
-
    // contacts table phone column equality exact match filtering
    contacts.phone.eq:string
-
-   // contacts table email column wildcard filtering with SQL like '%' comparison
-   contacts.email.like:string
 
    // contacts table email column equality exact match filtering
    contacts.email.eq:string
@@ -28,9 +22,6 @@
 
    // accounts table status column equality exact match filtering
    account_id.name.eq:string
-
-   // accounts table status column wildcard filtering with SQL like '%' comparison
-   account_id.name.like:string
 
 // Meta data description for endpoint
 .description:Counts items from your contacts table

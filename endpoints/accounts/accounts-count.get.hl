@@ -2,20 +2,11 @@
 // Counts items from your accounts table
 .arguments
 
-   // accounts table account_id column equality exact match filtering
-   accounts.account_id.eq:long
-
-   // accounts table status column wildcard filtering with SQL like '%' comparison
-   accounts.status.like:string
-
    // accounts table status column equality exact match filtering
    accounts.status.eq:string
 
    // accounts table name column wildcard filtering with SQL like '%' comparison
    accounts.name.like:string
-
-   // accounts table name column equality exact match filtering
-   accounts.name.eq:string
 
    // accounts table website column wildcard filtering with SQL like '%' comparison
    accounts.website.like:string
