@@ -32,18 +32,18 @@ create table accounts(
   description text null
 );
 
-insert into accounts (status, name, website, description) values ('Lead', 'Microsoft', 'http://microsoft.com', 'Leading provider of tech solutions');
-insert into accounts (status, name, website, description) values ('Lead', 'Apple', 'http://apple.com', 'Leading provider of tech solutions');
-insert into accounts (status, name, website, description) values ('Client', 'JP Morgan', 'http://jpmorgan.com', 'Global financial services');
-insert into accounts (status, name, website, description) values ('Partner', 'Ernst & Young', 'http://ey.com', 'Global financial services');
-insert into accounts (status, name, website, description) values ('Client', 'New York Times', 'http://nyt.com', 'Leaders in media');
-insert into accounts (status, name, website, description) values ('Client', 'Wall Street Journal', 'http://wsj.com', 'Publisher');
-insert into accounts (status, name, website, description) values ('Partner', 'Amazon', 'http://amazon.com', 'Experts in e-commerce');
-insert into accounts (status, name, website, description) values ('Client', 'Google', 'http://google.com', 'Leading online search engine');
-insert into accounts (status, name, website, description) values ('Client', 'PwC', 'http://pwc.com', 'Innovators in financial sector');
-insert into accounts (status, name, website, description) values ('Client', 'OpenAI', 'http://openai.com', 'Top AI company');
-insert into accounts (status, name, website, description) values ('Lead', 'Tesla', 'http://tesla.com', 'Specialists in electrical vehicles');
-insert into accounts (status, name, website, description) values ('Client', 'Twitter', 'http://twitter.com', 'Social media platform');
+insert into accounts (status, name, website, description) values ('Lead', 'Microsoft', 'https://microsoft.com', 'Leading provider of tech solutions');
+insert into accounts (status, name, website, description) values ('Lead', 'Apple', 'https://apple.com', 'Leading provider of tech solutions');
+insert into accounts (status, name, website, description) values ('Client', 'JP Morgan', 'https://jpmorgan.com', 'Global financial services');
+insert into accounts (status, name, website, description) values ('Partner', 'Ernst & Young', 'https://ey.com', 'Global financial services');
+insert into accounts (status, name, website, description) values ('Client', 'New York Times', 'https://nyt.com', 'Leaders in media');
+insert into accounts (status, name, website, description) values ('Client', 'Wall Street Journal', 'https://wsj.com', 'Publisher');
+insert into accounts (status, name, website, description) values ('Partner', 'Amazon', 'https://amazon.com', 'Experts in e-commerce');
+insert into accounts (status, name, website, description) values ('Client', 'Google', 'https://google.com', 'Leading online search engine');
+insert into accounts (status, name, website, description) values ('Client', 'PwC', 'https://pwc.com', 'Innovators in financial sector');
+insert into accounts (status, name, website, description) values ('Client', 'OpenAI', 'https://openai.com', 'Top AI company');
+insert into accounts (status, name, website, description) values ('Lead', 'Tesla', 'https://tesla.com', 'Specialists in electrical vehicles');
+insert into accounts (status, name, website, description) values ('Client', 'Twitter', 'https://twitter.com', 'Social media platform');
 
 
 
