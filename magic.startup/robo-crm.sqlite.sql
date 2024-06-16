@@ -63,7 +63,7 @@ create table contacts(
 
 insert into contacts (account_id, name, phone, email, description) values (1, 'John Doe', '555-1234', 'john.doe@example.com', 'Just some random dude. I suspect he is lying on his name.');
 insert into contacts (account_id, name, phone, email, description) values (2, 'Jane Smith', '555-5678', 'jane.smith@example.com', 'Sent 3 emails');
-insert into contacts (account_id, name, phone, email, description) values (3, 'Alice Johnson', '555-8765', 'alice.johnson@example.com', 'Called her a month ago');
+insert into contacts (account_id, name, phone, email, description) values (3, 'Alice Johnson', '555-8765', 'alice.johnson@example.com', 'Called her in October of 2023');
 insert into contacts (account_id, name, phone, email, description) values (4, 'Bob Brown', '555-4321', 'bob.brown@example.com', 'Lives in Iowa');
 insert into contacts (account_id, name, phone, email, description) values (5, 'Charlie Davis', '555-6789', 'charlie.davis@example.com', 'Has a dog named Jerry');
 insert into contacts (account_id, name, phone, email, description) values (6, 'Diana Evans', '555-9876', 'diana.evans@example.com', 'Loves Google');
@@ -72,13 +72,13 @@ insert into contacts (account_id, name, phone, email, description) values (8, 'F
 insert into contacts (account_id, name, phone, email, description) values (9, 'George Harris', '555-6543', 'george.harris@example.com', 'Already has another similar product, but wants to see ours');
 insert into contacts (account_id, name, phone, email, description) values (10, 'Hannah White', '555-3210', 'hannah.white@example.com', 'Loves mountain hiking');
 insert into contacts (account_id, name, phone, email, description) values (1, 'Ivy Clark', '555-1111', 'ivy.clark@example.com', 'We were supposed to get back to her in 2025');
-insert into contacts (account_id, name, phone, email, description) values (2, 'Jack Wilson', '555-2222', 'jack.wilson@example.com', 'Has a Volvo she loves');
-insert into contacts (account_id, name, phone, email, description) values (3, 'Karen Martinez', '555-3333', 'karen.martinez@example.com', 'Does not like to be called');
+insert into contacts (account_id, name, phone, email, description) values (2, 'Jack Wilson', '555-2222', 'jack.wilson@example.com', 'Has a Volvo he loves');
+insert into contacts (account_id, name, phone, email, description) values (3, 'Karen Martinez', '555-3333', 'karen.martinez@example.com', 'Does not like to be called on the phone. Hates his phone.');
 insert into contacts (account_id, name, phone, email, description) values (4, 'Leo Robinson', '555-4444', 'leo.robinson@example.com', 'Loves our products');
 insert into contacts (account_id, name, phone, email, description) values (5, 'Mia Lewis', '555-5555', 'mia.lewis@example.com', 'US citizen');
 insert into contacts (account_id, name, phone, email, description) values (6, 'Noah Walker', '555-6666', 'noah.walker@example.com', 'Soccer fan, loves Liverpool');
 insert into contacts (account_id, name, phone, email, description) values (7, 'Olivia Hall', '555-7777', 'olivia.hall@example.com', 'Likes UFC');
-insert into contacts (account_id, name, phone, email, description) values (8, 'Paul Young', '555-8888', 'paul.young@example.com', 'Travels to Hing Kong');
+insert into contacts (account_id, name, phone, email, description) values (8, 'Paul Young', '555-8888', 'paul.young@example.com', 'Travels to Hong Kong');
 insert into contacts (account_id, name, phone, email, description) values (9, 'Quinn King', '555-9999', 'quinn.king@example.com', 'Lives in Switzerland');
 insert into contacts (account_id, name, phone, email, description) values (10, 'Rachel Scott', '555-0000', 'rachel.scott@example.com', 'Nice lady, has a dog');
 
